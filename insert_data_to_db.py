@@ -50,7 +50,7 @@ def nalog_exps(table_name, rows):
         except:
             exp_date_in = str_date_to_ordinal(row[1])
         if not exp_date_in:
-            print(f'Некорректная дата поступления налоговой экспертизы {row[0]} ({row[1]})')
+            print(f'Некорректная дата поступления налоговой экспертизы {row[0].split(",")[0].strip()} ({row[1]})')
         init_organ = row[2]
         init_ter = row[3]
         init_fio = row[4]
@@ -67,13 +67,17 @@ def nalog_exps(table_name, rows):
             except:
                 exp_end_date = str_date_to_ordinal(row[11])
             if not exp_end_date:
-                print(f'Возможно некорректная дата окончания налоговой экспертизы {row[0]} ({row[11]})')
+                print(f'Возможно некорректная дата окончания налоговой экспертизы {row[0].split(",")[0].strip()} ({row[11]})')
         exp_result = row[12]
         exp_days_count = str(row[13]).strip('() ').split('.')[0]
         try:
             exp_days_count = int(exp_days_count)
         except:
-            exp_days_count = datetime.toordinal(datetime.now()) - exp_date_in
+            print(f'Количество дней налоговой экспертизы {row[0].split(",")[0].strip()} посчитано автоматически ({row[13]})')
+            if exp_end_date:
+                exp_days_count = exp_end_date - exp_date_in
+            else:    
+                exp_days_count = datetime.toordinal(datetime.now()) - exp_date_in
         persons_est = int(row[14]) if row[14] else 0
         facts_est = int(row[15]) if row[15] else 0
 
@@ -90,7 +94,7 @@ def nalog_exps(table_name, rows):
             exp_result, exp_days_count, persons_est, facts_est)
             cursor.execute(sqlite_insert_with_param, data_tuple)
         except sqlite3.Error as error:
-            log_data(f'{row[0]}: {str(error)}', 'sql_errors.log')
+            log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
     if sqlite_connection:
         sqlite_connection.commit()
@@ -116,7 +120,7 @@ def ia_exps(table_name, rows):
         except:
             exp_date_in = str_date_to_ordinal(row[1])
         if not exp_date_in:
-            print(f'Некорректная дата поступления информационно-аналитической экспертизы {row[0]} ({row[1]})')
+            print(f'Некорректная дата поступления информационно-аналитической экспертизы {row[0].split(",")[0].strip()} ({row[1]})')
         init_organ = row[2]
         init_ter = row[3]
         init_fio = row[4]
@@ -133,13 +137,17 @@ def ia_exps(table_name, rows):
             except:
                 exp_end_date = str_date_to_ordinal(row[11])
             if not exp_end_date:
-                print(f'Возможно некорректная дата окончания информационно-аналитической экспертизы {row[0]} ({row[11]})')
+                print(f'Возможно некорректная дата окончания информационно-аналитической экспертизы {row[0].split(",")[0].strip()} ({row[11]})')
         exp_result = row[12]
         exp_days_count = str(row[13]).strip('() ').split('.')[0]
         try:
             exp_days_count = int(exp_days_count)
         except:
-            exp_days_count = datetime.toordinal(datetime.now()) - exp_date_in
+            print(f'Количество дней информационно-аналитической экспертизы {row[0].split(",")[0].strip()} посчитано автоматически ({row[13]})')
+            if exp_end_date:
+                exp_days_count = exp_end_date - exp_date_in
+            else:    
+                exp_days_count = datetime.toordinal(datetime.now()) - exp_date_in
         persons_est = int(row[14]) if row[14] else 0
         facts_est = int(row[15]) if row[15] else 0
 
@@ -156,7 +164,7 @@ def ia_exps(table_name, rows):
             exp_result, exp_days_count, persons_est, facts_est)
             cursor.execute(sqlite_insert_with_param, data_tuple)
         except sqlite3.Error as error:
-            log_data(f'{row[0]}: {str(error)}', 'sql_errors.log')
+            log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
     if sqlite_connection:
         sqlite_connection.commit()
@@ -183,7 +191,7 @@ def lingv_exps(table_name, rows):
         except:
             exp_date_in = str_date_to_ordinal(row[1])
         if not exp_date_in:
-            print(f'Некорректная дата поступления лингвистической экспертизы {row[0]} ({row[1]})')
+            print(f'Некорректная дата поступления лингвистической экспертизы {row[0].split(",")[0].strip()} ({row[1]})')
         init_organ = row[2]
         init_ter = row[3]
         init_fio = row[4]
@@ -201,13 +209,17 @@ def lingv_exps(table_name, rows):
             except:
                 exp_end_date = str_date_to_ordinal(row[12])
             if not exp_end_date:
-                print(f'Возможно некорректная дата окончания лингвистической экспертизы {row[0]} ({row[12]})')
+                print(f'Возможно некорректная дата окончания лингвистической экспертизы {row[0].split(",")[0].strip()} ({row[12]})')
         exp_result = row[13]
         exp_days_count = str(row[14]).strip('() ').split('.')[0]
         try:
             exp_days_count = int(exp_days_count)
         except:
-            exp_days_count = datetime.toordinal(datetime.now()) - exp_date_in
+            print(f'Количество дней лингвистической экспертизы {row[0].split(",")[0].strip()} посчитано автоматически ({row[14]})')
+            if exp_end_date:
+                exp_days_count = exp_end_date - exp_date_in
+            else:    
+                exp_days_count = datetime.toordinal(datetime.now()) - exp_date_in
         crime_persons_est = int(row[15]) if row[15] else 0
         facts_est = int(row[16]) if row[16] else 0
 
@@ -224,7 +236,7 @@ def lingv_exps(table_name, rows):
             exp_result, exp_days_count, crime_persons_est, facts_est)
             cursor.execute(sqlite_insert_with_param, data_tuple)
         except sqlite3.Error as error:
-            log_data(f'{row[0]}: {str(error)}', 'sql_errors.log')
+            log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
     if sqlite_connection:
         sqlite_connection.commit()
@@ -250,7 +262,7 @@ def kt_exps(table_name, rows):
         except:
             exp_date_in = str_date_to_ordinal(row[1])
         if not exp_date_in:
-            print(f'Некорректная дата поступления компьютерно-технической экспертизы {row[0]} ({row[1]})')
+            print(f'Некорректная дата поступления компьютерно-технической экспертизы {row[0].split(",")[0].strip()} ({row[1]})')
         init_organ = row[2]
         init_ter = row[3]
         init_fio = row[4]
@@ -271,10 +283,17 @@ def kt_exps(table_name, rows):
             except:
                 exp_end_date = str_date_to_ordinal(row[15])
             if not exp_end_date:
-                print(f'Возможно некорректная дата окончания информационно-аналитической экспертизы {row[0]} ({row[15]})')
+                print(f'Возможно некорректная дата окончания компьютерно-технической экспертизы {row[0].split(",")[0].strip()} ({row[15]})')
         exp_result = row[16]
         exp_days_count = str(row[17]).strip('() ').split('.')[0]
-        exp_days_count = int(exp_days_count)
+        try:
+            exp_days_count = int(exp_days_count)
+        except:
+            print(f'Количество дней компьютерно-технической экспертизы {row[0].split(",")[0].strip()} посчитано автоматически ({row[17]})')
+            if exp_end_date:
+                exp_days_count = exp_end_date - exp_date_in
+            else:    
+                exp_days_count = datetime.toordinal(datetime.now()) - exp_date_in
         # 18 - лиц установлено всегда 0, пропуск
         facts_est = int(row[19]) if row[19] else 0
         exp_vyvod = row[20]
@@ -312,7 +331,7 @@ def kt_exps(table_name, rows):
             data_tuple = data_tuple_main + data_obj_tuple
             cursor.execute(sqlite_insert_with_param, data_tuple)
         except sqlite3.Error as error:
-            log_data(f'{row[0]}: {str(error)}', 'sql_errors.log')
+            log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
     if sqlite_connection:
         sqlite_connection.commit()
@@ -338,7 +357,7 @@ def fa_exps(table_name, rows):
         except:
             exp_date_in = str_date_to_ordinal(row[1])
         if not exp_date_in:
-            print(f'Некорректная дата поступления финансово-аналитической экспертизы {row[0]} ({row[1]})')
+            print(f'Некорректная дата поступления финансово-аналитической экспертизы {row[0].split(",")[0].strip()} ({row[1]})')
         init_organ = row[2]
         init_ter = row[3]
         init_fio = row[4]
@@ -355,13 +374,17 @@ def fa_exps(table_name, rows):
             except:
                 exp_end_date = str_date_to_ordinal(row[11])
             if not exp_end_date:
-                print(f'Возможно некорректная дата окончания финансово-аналитической экспертизы {row[0]} ({row[11]})')
+                print(f'Возможно некорректная дата окончания финансово-аналитической экспертизы {row[0].split(",")[0].strip()} ({row[11]})')
         exp_result = row[12]
         exp_days_count = str(row[13]).strip('() ').split('.')[0]
         try:
             exp_days_count = int(exp_days_count)
         except:
-            exp_days_count = datetime.toordinal(datetime.now()) - exp_date_in
+            print(f'Количество дней финансово-аналитической экспертизы {row[0].split(",")[0].strip()} посчитано автоматически ({row[13]})')
+            if exp_end_date:
+                exp_days_count = exp_end_date - exp_date_in
+            else:    
+                exp_days_count = datetime.toordinal(datetime.now()) - exp_date_in
         persons_est = int(row[14]) if row[14] else 0
         facts_est = int(row[15]) if row[15] else 0
 
@@ -378,7 +401,7 @@ def fa_exps(table_name, rows):
             exp_result, exp_days_count, persons_est, facts_est)
             cursor.execute(sqlite_insert_with_param, data_tuple)
         except sqlite3.Error as error:
-            log_data(f'{row[0]}: {str(error)}', 'sql_errors.log')
+            log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
     if sqlite_connection:
         sqlite_connection.commit()
@@ -404,7 +427,7 @@ def fono_exps(table_name, rows):
         except:
             exp_date_in = str_date_to_ordinal(row[1])
         if not exp_date_in:
-            print(f'Некорректная дата поступления фоноскопической экспертизы {row[0]} ({row[1]})')
+            print(f'Некорректная дата поступления фоноскопической экспертизы {row[0].split(",")[0].strip()} ({row[1]})')
         init_organ = row[2]
         init_ter = row[3]
         init_fio = row[4]
@@ -423,7 +446,7 @@ def fono_exps(table_name, rows):
             except:
                 exp_end_date = str_date_to_ordinal(row[13])
             if not exp_end_date:
-                print(f'Возможно некорректная дата окончания фоноскопической экспертизы {row[0]} ({row[13]})')
+                print(f'Возможно некорректная дата окончания фоноскопической экспертизы {row[0].split(",")[0].strip()} ({row[13]})')
         exp_result = row[14]
         verbatim_duration = row[15]
         idents_count = row[16]
@@ -432,7 +455,11 @@ def fono_exps(table_name, rows):
         try:
             exp_days_count = int(exp_days_count)
         except:
-            exp_days_count = datetime.toordinal(datetime.now()) - exp_date_in
+            print(f'Количество дней фоноскопической экспертизы {row[0].split(",")[0].strip()} посчитано автоматически ({row[18]})')
+            if exp_end_date:
+                exp_days_count = exp_end_date - exp_date_in
+            else:    
+                exp_days_count = datetime.toordinal(datetime.now()) - exp_date_in
         crime_persons_est = int(row[19]) if row[19] else 0
         facts_est = int(row[20]) if row[20] else 0
 
@@ -451,7 +478,7 @@ def fono_exps(table_name, rows):
                         persons_est, exp_days_count, crime_persons_est, facts_est)
             cursor.execute(sqlite_insert_with_param, data_tuple)
         except sqlite3.Error as error:
-            log_data(f'{row[0]}: {str(error)}', 'sql_errors.log')
+            log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
     if sqlite_connection:
         sqlite_connection.commit()
@@ -478,7 +505,7 @@ def buh_exps(table_name, rows):
         except:
             exp_date_in = str_date_to_ordinal(row[1])
         if not exp_date_in:
-            print(f'Некорректная дата поступления бухгалтерской экспертизы {row[0]} ({row[1]})')
+            print(f'Некорректная дата поступления бухгалтерской экспертизы {row[0].split(",")[0].strip()} ({row[1]})')
         init_organ = row[2]
         init_ter = row[3]
         init_fio = row[4]
@@ -495,13 +522,17 @@ def buh_exps(table_name, rows):
             except:
                 exp_end_date = str_date_to_ordinal(row[11])
             if not exp_end_date:
-                print(f'Возможно некорректная дата окончания бухгалтерской экспертизы {row[0]} ({row[11]})')
+                print(f'Возможно некорректная дата окончания бухгалтерской экспертизы {row[0].split(",")[0].strip()} ({row[11]})')
         exp_result = row[12]
         exp_days_count = str(row[13]).strip('() ').split('.')[0]
         try:
             exp_days_count = int(exp_days_count)
         except:
-            exp_days_count = datetime.toordinal(datetime.now()) - exp_date_in
+            print(f'Количество дней бухгалтерской экспертизы {row[0].split(",")[0].strip()} посчитано автоматически ({row[13]})')
+            if exp_end_date:
+                exp_days_count = exp_end_date - exp_date_in
+            else:    
+                exp_days_count = datetime.toordinal(datetime.now()) - exp_date_in
         persons_est = int(row[14]) if row[14] else 0
         facts_est = int(row[15]) if row[15] else 0
 
@@ -518,7 +549,7 @@ def buh_exps(table_name, rows):
             exp_result, exp_days_count, persons_est, facts_est)
             cursor.execute(sqlite_insert_with_param, data_tuple)
         except sqlite3.Error as error:
-            log_data(f'{row[0]}: {str(error)}', 'sql_errors.log')
+            log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
     if sqlite_connection:
         sqlite_connection.commit()
@@ -544,7 +575,7 @@ def ocen_exps(table_name, rows):
         except:
             exp_date_in = str_date_to_ordinal(row[1])
         if not exp_date_in:
-            print(f'Некорректная дата поступления оценочной экспертизы {row[0]} ({row[1]})')
+            print(f'Некорректная дата поступления оценочной экспертизы {row[0].split(",")[0].strip()} ({row[1]})')
         init_organ = row[2]
         init_ter = row[3]
         init_fio = row[4]
@@ -561,13 +592,17 @@ def ocen_exps(table_name, rows):
             except:
                 exp_end_date = str_date_to_ordinal(row[11])
             if not exp_end_date:
-                print(f'Возможно некорректная дата окончания оценочной экспертизы {row[0]} ({row[11]})')
+                print(f'Возможно некорректная дата окончания оценочной экспертизы {row[0].split(",")[0].strip()} ({row[11]})')
         exp_result = row[12]
         exp_days_count = str(row[13]).strip('() ').split('.')[0]
         try:
             exp_days_count = int(exp_days_count)
         except:
-            exp_days_count = datetime.toordinal(datetime.now()) - exp_date_in
+            print(f'Количество дней оценочной экспертизы {row[0].split(",")[0].strip()} посчитано автоматически ({row[13]})')
+            if exp_end_date:
+                exp_days_count = exp_end_date - exp_date_in
+            else:    
+                exp_days_count = datetime.toordinal(datetime.now()) - exp_date_in
         persons_est = int(row[14]) if row[14] else 0
         facts_est = int(row[15]) if row[15] else 0
 
@@ -584,7 +619,7 @@ def ocen_exps(table_name, rows):
             exp_result, exp_days_count, persons_est, facts_est)
             cursor.execute(sqlite_insert_with_param, data_tuple)
         except sqlite3.Error as error:
-            log_data(f'{row[0]}: {str(error)}', 'sql_errors.log')
+            log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
     if sqlite_connection:
         sqlite_connection.commit()
@@ -610,7 +645,7 @@ def oiti_exps(table_name, rows):
         except:
             exp_date_in = str_date_to_ordinal(row[1])
         if not exp_date_in:
-            print(f'Некорректная дата поступления ОИТИ экспертизы {row[0]} ({row[1]})')
+            print(f'Некорректная дата поступления ОИТИ экспертизы {row[0].split(",")[0].strip()} ({row[1]})')
         init_organ = row[2]
         init_ter = row[3]
         init_fio = row[4]
@@ -627,13 +662,17 @@ def oiti_exps(table_name, rows):
             except:
                 exp_end_date = str_date_to_ordinal(row[11])
             if not exp_end_date:
-                print(f'Возможно некорректная дата окончания ОИТИ экспертизы {row[0]} ({row[11]})')
+                print(f'Возможно некорректная дата окончания ОИТИ экспертизы {row[0].split(",")[0].strip()} ({row[11]})')
         exp_result = row[12]
         exp_days_count = str(row[13]).strip('() ').split('.')[0]
         try:
             exp_days_count = int(exp_days_count)
         except:
-            exp_days_count = datetime.toordinal(datetime.now()) - exp_date_in
+            print(f'Количество дней ОИТИ экспертизы {row[0].split(",")[0].strip()} посчитано автоматически ({row[13]})')
+            if exp_end_date:
+                exp_days_count = exp_end_date - exp_date_in
+            else:    
+                exp_days_count = datetime.toordinal(datetime.now()) - exp_date_in
         persons_est = int(row[14]) if row[14] else 0
         facts_est = int(row[15]) if row[15] else 0
 
@@ -650,13 +689,12 @@ def oiti_exps(table_name, rows):
             exp_result, exp_days_count, persons_est, facts_est)
             cursor.execute(sqlite_insert_with_param, data_tuple)
         except sqlite3.Error as error:
-            log_data(f'{row[0]}: {str(error)}', 'sql_errors.log')
+            log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
     if sqlite_connection:
         sqlite_connection.commit()
         sqlite_connection.close()
     return res_with_errors
-
 
 def sm_exps(table_name, rows):
     res_with_errors = 0
@@ -676,14 +714,14 @@ def sm_exps(table_name, rows):
         except:
             exp_date_in = str_date_to_ordinal(row[1])
         if not exp_date_in:
-            print(f'Некорректная дата поступления СМ экспертизы {row[0]} ({row[1]})')
+            print(f'Некорректная дата поступления СМ экспертизы {row[0].split(",")[0].strip()} ({row[1]})')
         init_organ = row[2]
         init_ter = row[3]
         init_fio = row[4]
         mat_number = row[5]
         uk_state = row[6]
         exp_fio = row[7]
-        objs_count = row[8]
+        exp_fio_complex = row[8]
         exp_type = row[9]
         exp_status = row[10].capitalize()
         exp_end_date = 0
@@ -693,7 +731,7 @@ def sm_exps(table_name, rows):
             except:
                 exp_end_date = str_date_to_ordinal(row[11])
             if not exp_end_date:
-                print(f'Возможно некорректная дата окончания СМ экспертизы {row[0]} ({row[11]})')
+                print(f'Возможно некорректная дата окончания СМ экспертизы {row[0].split(",")[0].strip()} ({row[11]})')
         exp_result = row[12]
         objs_count = row[13]
         patient_fio = row[14]
@@ -703,7 +741,11 @@ def sm_exps(table_name, rows):
         try:
             exp_days_count = int(exp_days_count)
         except:
-            exp_days_count = datetime.toordinal(datetime.now()) - exp_date_in
+            print(f'Количество дней СМ экспертизы {row[0].split(",")[0].strip()} посчитано автоматически ({row[17]})')
+            if exp_end_date:
+                exp_days_count = exp_end_date - exp_date_in
+            else:    
+                exp_days_count = datetime.toordinal(datetime.now()) - exp_date_in
         crime_persons_est = int(row[18]) if row[18] else 0
         facts_est = int(row[19]) if row[19] else 0
 
@@ -711,21 +753,22 @@ def sm_exps(table_name, rows):
         try:    
             sqlite_insert_with_param = f'''INSERT INTO {table_name}
                   (exp_number, difficult, exp_in_date, initiator_organ, initiator_territory, initiator_fio,
-                  mat_number, UK_state, exps_fio, objs_count, exp_type, exp_status, exp_end_date, exp_result,
+                  mat_number, UK_state, exps_fio, exps_fio_complex, exp_type, exp_status, exp_end_date, exp_result,
                   objs_count, patient_fio, patient_status, med_docs, exp_days_count, crime_persons_est, facts_est)
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
 
             data_tuple = (exp_num, difficult, exp_date_in, init_organ, init_ter, init_fio, mat_number, uk_state,
-                          exp_fio, objs_count, exp_type, exp_status, exp_end_date, exp_result, objs_count,
+                          exp_fio, exp_fio_complex, exp_type, exp_status, exp_end_date, exp_result, objs_count,
                           patient_fio, patient_status, med_docs, exp_days_count, crime_persons_est, facts_est)
             cursor.execute(sqlite_insert_with_param, data_tuple)
         except sqlite3.Error as error:
-            log_data(f'{row[0]}: {str(error)}', 'sql_errors.log')
+            log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
     if sqlite_connection:
         sqlite_connection.commit()
         sqlite_connection.close()
     return res_with_errors
+
 
 # Добавление данных в таблицы исследований
 def nalog_issls(table_name, rows):
@@ -747,7 +790,7 @@ def nalog_issls(table_name, rows):
         except:
             issl_date_in = str_date_to_ordinal(row[1])
         if not issl_date_in:
-            print(f'Некорректная дата поступления налогового исследования {row[0]} ({row[1]})')
+            print(f'Некорректная дата поступления налогового исследования {row[0].split(",")[0].strip()} ({row[1]})')
         init_organ = row[2]
         init_ter = row[3]
         init_fio = row[4]
@@ -763,13 +806,17 @@ def nalog_issls(table_name, rows):
             except:
                 issl_end_date = str_date_to_ordinal(row[10])
             if not issl_end_date:
-                print(f'Возможно некорректная дата окончания налогового исследования {row[0]} ({row[10]})')
+                print(f'Возможно некорректная дата окончания налогового исследования {row[0].split(",")[0].strip()} ({row[10]})')
         issl_result = row[11]
         issl_days_count = str(row[12]).strip('() ').split('.')[0]
         try:
             issl_days_count = int(issl_days_count)
         except:
-            issl_days_count = datetime.toordinal(datetime.now()) - issl_date_in
+            print(f'Количество дней налогового исследования {row[0].split(",")[0].strip()} посчитано автоматически ({row[12]})')
+            if issl_end_date:
+                issl_days_count = issl_end_date - issl_date_in
+            else:    
+                issl_days_count = datetime.toordinal(datetime.now()) - issl_date_in
         persons_est = int(row[13]) if row[13] else 0
         facts_est = int(row[14]) if row[14] else 0
 
@@ -786,7 +833,7 @@ def nalog_issls(table_name, rows):
             issl_result, issl_days_count, persons_est, facts_est)
             cursor.execute(sqlite_insert_with_param, data_tuple)
         except sqlite3.Error as error:
-            log_data(f'{row[0]}: {str(error)}', 'sql_errors.log')
+            log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
     if sqlite_connection:
         sqlite_connection.commit()
@@ -812,7 +859,7 @@ def ia_issls(table_name, rows):
         except:
             issl_date_in = str_date_to_ordinal(row[1])
         if not issl_date_in:
-            print(f'Некорректная дата поступления информационно-аналитического исследования {row[0]} ({row[1]})')
+            print(f'Некорректная дата поступления информационно-аналитического исследования {row[0].split(",")[0].strip()} ({row[1]})')
         init_organ = row[2]
         init_ter = row[3]
         init_fio = row[4]
@@ -828,13 +875,17 @@ def ia_issls(table_name, rows):
             except:
                 issl_end_date = str_date_to_ordinal(row[10])
             if not issl_end_date:
-                print(f'Возможно некорректная дата окончания информационно-аналитического исследования {row[0]} ({row[10]})')
+                print(f'Возможно некорректная дата окончания информационно-аналитического исследования {row[0].split(",")[0].strip()} ({row[10]})')
         issl_result = row[11]
         issl_days_count = str(row[12]).strip('() ').split('.')[0]
         try:
             issl_days_count = int(issl_days_count)
         except:
-            issl_days_count = datetime.toordinal(datetime.now()) - issl_date_in
+            print(f'Количество дней информационно-аналитического исследования {row[0].split(",")[0].strip()} посчитано автоматически ({row[12]})')
+            if issl_end_date:
+                issl_days_count = issl_end_date - issl_date_in
+            else:    
+                issl_days_count = datetime.toordinal(datetime.now()) - issl_date_in
         persons_est = int(row[13]) if row[13] else 0
         facts_est = int(row[14]) if row[14] else 0
 
@@ -851,7 +902,7 @@ def ia_issls(table_name, rows):
             issl_result, issl_days_count, persons_est, facts_est)
             cursor.execute(sqlite_insert_with_param, data_tuple)
         except sqlite3.Error as error:
-            log_data(f'{row[0]}: {str(error)}', 'sql_errors.log')
+            log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
     if sqlite_connection:
         sqlite_connection.commit()
@@ -877,7 +928,7 @@ def lingv_issls(table_name, rows):
         except:
             issl_date_in = str_date_to_ordinal(row[1])
         if not issl_date_in:
-            print(f'Некорректная дата поступления лингвистического исследования {row[0]} ({row[1]})')
+            print(f'Некорректная дата поступления лингвистического исследования {row[0].split(",")[0].strip()} ({row[1]})')
         init_organ = row[2]
         init_ter = row[3]
         init_fio = row[4]
@@ -894,13 +945,17 @@ def lingv_issls(table_name, rows):
             except:
                 issl_end_date = str_date_to_ordinal(row[11])
             if not issl_end_date:
-                print(f'Возможно некорректная дата окончания лингвистического исследования {row[0]} ({row[11]})')
+                print(f'Возможно некорректная дата окончания лингвистического исследования {row[0].split(",")[0].strip()} ({row[11]})')
         issl_result = row[12]
         issl_days_count = str(row[13]).strip('() ').split('.')[0]
         try:
             issl_days_count = int(issl_days_count)
         except:
-            issl_days_count = datetime.toordinal(datetime.now()) - issl_date_in
+            print(f'Количество дней лингвистического исследования {row[0].split(",")[0].strip()} посчитано автоматически ({row[13]})')
+            if issl_end_date:
+                issl_days_count = issl_end_date - issl_date_in
+            else:    
+                issl_days_count = datetime.toordinal(datetime.now()) - issl_date_in
         persons_est = int(row[14]) if row[14] else 0
         facts_est = int(row[15]) if row[15] else 0
 
@@ -917,7 +972,7 @@ def lingv_issls(table_name, rows):
             issl_result, issl_days_count, persons_est, facts_est)
             cursor.execute(sqlite_insert_with_param, data_tuple)
         except sqlite3.Error as error:
-            log_data(f'{row[0]}: {str(error)}', 'sql_errors.log')
+            log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
     if sqlite_connection:
         sqlite_connection.commit()
@@ -943,7 +998,7 @@ def kt_issls(table_name, rows):
         except:
             issl_date_in = str_date_to_ordinal(row[1])
         if not issl_date_in:
-            print(f'Некорректная дата поступления компьютерно-технической экспертизы {row[0]} ({row[1]})')
+            print(f'Некорректная дата поступления компьютерно-технической экспертизы {row[0].split(",")[0].strip()} ({row[1]})')
         init_organ = row[2]
         init_ter = row[3]
         init_fio = row[4]
@@ -963,7 +1018,7 @@ def kt_issls(table_name, rows):
             except:
                 issl_end_date = str_date_to_ordinal(row[14])
             if not issl_end_date:
-                print(f'Возможно некорректная дата окончания информационно-аналитической экспертизы {row[0]} ({row[14]})')
+                print(f'Возможно некорректная дата окончания информационно-аналитической экспертизы {row[0].split(",")[0].strip()} ({row[14]})')
         issl_result = row[15]
         issl_days_count = str(row[16]).strip('() ').split('.')[0]
         issl_days_count = int(issl_days_count)
@@ -1031,7 +1086,7 @@ def fa_issls(table_name, rows):
         except:
             issl_date_in = str_date_to_ordinal(row[1])
         if not issl_date_in:
-            print(f'Некорректная дата поступления ФА исследования {row[0]} ({row[1]})')
+            print(f'Некорректная дата поступления ФА исследования {row[0].split(",")[0].strip()} ({row[1]})')
         init_organ = row[2]
         init_ter = row[3]
         init_fio = row[4]
@@ -1047,13 +1102,17 @@ def fa_issls(table_name, rows):
             except:
                 issl_end_date = str_date_to_ordinal(row[10])
             if not issl_end_date:
-                print(f'Возможно некорректная дата окончания ФА исследования {row[0]} ({row[10]})')
+                print(f'Возможно некорректная дата окончания ФА исследования {row[0].split(",")[0].strip()} ({row[10]})')
         issl_result = row[11]
         issl_days_count = str(row[12]).strip('() ').split('.')[0]
         try:
             issl_days_count = int(issl_days_count)
         except:
-            issl_days_count = datetime.toordinal(datetime.now()) - issl_date_in
+            print(f'Количество дней ФА исследования {row[0].split(",")[0].strip()} посчитано автоматически ({row[12]})')
+            if issl_end_date:
+                issl_days_count = issl_end_date - issl_date_in
+            else:    
+                issl_days_count = datetime.toordinal(datetime.now()) - issl_date_in
         persons_est = int(row[13]) if row[13] else 0
         facts_est = int(row[14]) if row[14] else 0
 
@@ -1070,7 +1129,7 @@ def fa_issls(table_name, rows):
             issl_result, issl_days_count, persons_est, facts_est)
             cursor.execute(sqlite_insert_with_param, data_tuple)
         except sqlite3.Error as error:
-            log_data(f'{row[0]}: {str(error)}', 'sql_errors.log')
+            log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
     if sqlite_connection:
         sqlite_connection.commit()
@@ -1096,7 +1155,7 @@ def fono_issls(table_name, rows):
         except:
             issl_date_in = str_date_to_ordinal(row[1])
         if not issl_date_in:
-            print(f'Некорректная дата поступления фоноскопического исследования {row[0]} ({row[1]})')
+            print(f'Некорректная дата поступления фоноскопического исследования {row[0].split(",")[0].strip()} ({row[1]})')
         init_organ = row[2]
         init_ter = row[3]
         init_fio = row[4]
@@ -1114,7 +1173,7 @@ def fono_issls(table_name, rows):
             except:
                 issl_end_date = str_date_to_ordinal(row[12])
             if not issl_end_date:
-                print(f'Возможно некорректная дата окончания фоноскопического исследования {row[0]} ({row[12]})')
+                print(f'Возможно некорректная дата окончания фоноскопического исследования {row[0].split(",")[0].strip()} ({row[12]})')
         issl_result = row[13]
         verbatim_duration = row[14]
         idents_count = row[15]
@@ -1123,7 +1182,11 @@ def fono_issls(table_name, rows):
         try:
             issl_days_count = int(issl_days_count)
         except:
-            issl_days_count = datetime.toordinal(datetime.now()) - issl_date_in
+            print(f'Количество дней фоноскопического исследования {row[0].split(",")[0].strip()} посчитано автоматически ({row[17]})')
+            if issl_end_date:
+                issl_days_count = issl_end_date - issl_date_in
+            else:    
+                issl_days_count = datetime.toordinal(datetime.now()) - issl_date_in
         crime_persons_est = int(row[18]) if row[18] else 0
         facts_est = int(row[19]) if row[19] else 0
 
@@ -1142,7 +1205,7 @@ def fono_issls(table_name, rows):
                         crime_persons_est, facts_est)
             cursor.execute(sqlite_insert_with_param, data_tuple)
         except sqlite3.Error as error:
-            log_data(f'{row[0]}: {str(error)}', 'sql_errors.log')
+            log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
     if sqlite_connection:
         sqlite_connection.commit()
@@ -1168,7 +1231,7 @@ def buh_issls(table_name, rows):
         except:
             issl_date_in = str_date_to_ordinal(row[1])
         if not issl_date_in:
-            print(f'Некорректная дата поступления бухгалтерского исследования {row[0]} ({row[1]})')
+            print(f'Некорректная дата поступления бухгалтерского исследования {row[0].split(",")[0].strip()} ({row[1]})')
         init_organ = row[2]
         init_ter = row[3]
         init_fio = row[4]
@@ -1184,13 +1247,17 @@ def buh_issls(table_name, rows):
             except:
                 issl_end_date = str_date_to_ordinal(row[10])
             if not issl_end_date:
-                print(f'Возможно некорректная дата окончания бухгалтерского исследования {row[0]} ({row[10]})')
+                print(f'Возможно некорректная дата окончания бухгалтерского исследования {row[0].split(",")[0].strip()} ({row[10]})')
         issl_result = row[11]
         issl_days_count = str(row[12]).strip('() ').split('.')[0]
         try:
             issl_days_count = int(issl_days_count)
         except:
-            issl_days_count = datetime.toordinal(datetime.now()) - issl_date_in
+            print(f'Количество дней бухгалтерского исследования {row[0].split(",")[0].strip()} посчитано автоматически ({row[12]})')
+            if issl_end_date:
+                issl_days_count = issl_end_date - issl_date_in
+            else:    
+                issl_days_count = datetime.toordinal(datetime.now()) - issl_date_in
         persons_est = int(row[13]) if row[13] else 0
         facts_est = int(row[14]) if row[14] else 0
 
@@ -1207,7 +1274,7 @@ def buh_issls(table_name, rows):
             issl_result, issl_days_count, persons_est, facts_est)
             cursor.execute(sqlite_insert_with_param, data_tuple)
         except sqlite3.Error as error:
-            log_data(f'{row[0]}: {str(error)}', 'sql_errors.log')
+            log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
     if sqlite_connection:
         sqlite_connection.commit()
@@ -1215,12 +1282,77 @@ def buh_issls(table_name, rows):
     return res_with_errors
 
 def sm_issls(table_name, rows):
-    # print('СМ исследования')
-    pass
+    res_with_errors = 0
+    sqlite_connection = sqlite3.connect('Все журналы.db')
+    cursor = sqlite_connection.cursor()
+    for row in rows:
+        if not row[0]:
+            break
+        issl_num = row[0].split(',')[0].strip()
+        try:       
+            difficult = row[0].split(',')[1].strip().capitalize()
+        except:
+            difficult = 'Сложная'
+            print(table_name, row[0], 'не указана сложность!')
+        try:
+            issl_date_in = xls_date_to_ordinal(row[1])
+        except:
+            issl_date_in = str_date_to_ordinal(row[1])
+        if not issl_date_in:
+            print(f'Некорректная дата поступления СМ исследования {row[0].split(",")[0].strip()} ({row[1]})')
+        init_organ = row[2]
+        init_ter = row[3]
+        init_fio = row[4]
+        mat_number = row[5]
+        uk_state = row[6]
+        exp_fio = row[7]
+        exp_fio_copmlex = row[8]
+        issl_status = row[9].capitalize()
+        issl_end_date = 0
+        if issl_status.capitalize() != 'В производстве':
+            try:
+                issl_end_date = xls_date_to_ordinal(row[10])
+            except:
+                issl_end_date = str_date_to_ordinal(row[10])
+            if not issl_end_date:
+                print(f'Возможно некорректная дата окончания СМ исследования {row[0].split(",")[0].strip()} ({row[10]})')
+        issl_result = row[11]
+        objs_count = row[12]
+        patient_fio = row[13]
+        patient_status = row[14]
+        med_docs = row[15]
+        issl_type = row[16]
+        issl_days_count = str(row[17]).strip('() ').split('.')[0]
+        try:
+            issl_days_count = int(issl_days_count)
+        except:
+            print(f'Количество дней СМ исследования {row[0].split(",")[0].strip()} посчитано автоматически ({row[17]})')
+            if issl_end_date:
+                issl_days_count = issl_end_date - issl_date_in
+            else:    
+                issl_days_count = datetime.toordinal(datetime.now()) - issl_date_in
+        crime_persons_est = int(row[18]) if row[18] else 0
+        facts_est = int(row[19]) if row[19] else 0
 
-def sei_issls(table_name, rows):
-    # print('СЭИ исследования')
-    pass
+        # занесение данных в БД
+        try:    
+            sqlite_insert_with_param = f'''INSERT INTO {table_name}
+                  (issl_number, difficult, issl_in_date, initiator_organ, initiator_territory, initiator_fio,
+                  mat_number, UK_state, exps_fio, exps_fio_copmlex, issl_type, issl_status, issl_end_date, issl_result,
+                  objs_count, patient_fio, patient_status, med_docs, issl_days_count, crime_persons_est, facts_est)
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
+
+            data_tuple = (issl_num, difficult, issl_date_in, init_organ, init_ter, init_fio, mat_number, uk_state,
+                          exp_fio, exp_fio_copmlex, issl_type, issl_status, issl_end_date, issl_result, objs_count,
+                          patient_fio, patient_status, med_docs, issl_days_count, crime_persons_est, facts_est)
+            cursor.execute(sqlite_insert_with_param, data_tuple)
+        except sqlite3.Error as error:
+            log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
+            res_with_errors = 1
+    if sqlite_connection:
+        sqlite_connection.commit()
+        sqlite_connection.close()
+    return res_with_errors
 
 # Добавление таблиц СиПД
 def okti_sipd(table_name, rows):
@@ -1274,7 +1406,7 @@ def consults(table_name, rows):
             data_tuple = (date, exp_direct, init_ter, init_fio, mat_number, uk_state, exps_fio, cons_type, result)
             cursor.execute(sqlite_insert_with_params, data_tuple)
         except sqlite3.Error as error:
-            log_data(f'{row[0]}: {str(error)}', 'sql_errors.log')
+            log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             print('При обработке журналов консультаций произошла ошибка')
     sqlite_connection.commit()
     if sqlite_connection:
@@ -1317,7 +1449,7 @@ def trips(table_name, rows):
               init_podr, init_fio, mat_number, st_uk, exp_fio, trip_type, trip_result)
             cursor.execute(sqlite_insert_with_params, data_tuple)
         except sqlite3.Error as error:
-            log_data(f'{row[0]}: {str(error)}', 'sql_errors.log')
+            log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             print('При обработке журналов командировок произошла ошибка')
     sqlite_connection.commit()
     if sqlite_connection:
