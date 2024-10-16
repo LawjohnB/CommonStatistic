@@ -7,7 +7,9 @@ import insert_data_to_db
 backslash_char = "\\"
 
 # номер текущей недели
-current_week = datetime.isocalendar(datetime.now())[1]
+# current_week = datetime.isocalendar(datetime.now())[1]
+# current_year = datetime.isocalendar(datetime.now())[0]
+current_week = '_'.join(map(str, datetime.isocalendar(datetime.now())[-2::-1]))
 
 # составление списка всех файлов 
 files = glob.glob('./Журналы регионов/*.xls*')
@@ -44,35 +46,35 @@ renamed_sheets = {'Бухгалтерская': 'БУХГ', 'Инф.-анали�
                   'Фоноскопическая': 'ФОНО'}
 
 ## Создание пустых таблиц текущей нелели для внесения данных 
-create_all_tables(current_week)
+# create_all_tables(current_week)
 print(f'Таблицы {current_week} недели успешно созданы')
 
 
-## Обход файлов Excel
-# Проход по каждому файлам экспертиз
-for excel_file in xlsx_exps:
-    exps = xlrd.open_workbook(excel_file, on_demand = True)
-    for sheet_name in exps.sheet_names():
-        if sheet_name not in allowed_sheets:   
-            # print(f'В файле "{excel_file.split(backslash_char)[-1]}" пропущен лист "{sheet_name}"')
-            continue
-            # пропуск СМЭ не из Ростова
-        if sheet_name == 'СМЭ' and not 'Ростов' in excel_file:
-            print(f'Пропущен лист СМЭ в файле {excel_file}')
-            continue
-        current_sheet = exps.sheet_by_name(sheet_name)
-        rows = [current_sheet.row_values(x) for x in range(1, current_sheet.nrows)]
-        if not rows:
-            # print(f'В файле "{excel_file.split(backslash_char)[-1]}" пустой лист "{sheet_name}"')
-            continue
-        if current_sheet in renamed_sheets:
-            sheet_name = renamed_sheets[sheet_name]
-        table_name = f'Week_{current_week}_{sheet_name}_Exps'
-        res = insert_data_to_db.table_query_exps[sheet_name](table_name, rows)
-        if res:
-            print(f'Заполнение таблицы {table_name} из файла {excel_file} завершено с ошибками')
-    exps.release_resources()
-    del exps
+# ## Обход файлов Excel
+# # Проход по каждому файлам экспертиз
+# for excel_file in xlsx_exps:
+#     exps = xlrd.open_workbook(excel_file, on_demand = True)
+#     for sheet_name in exps.sheet_names():
+#         if sheet_name not in allowed_sheets:   
+#             # print(f'В файле "{excel_file.split(backslash_char)[-1]}" пропущен лист "{sheet_name}"')
+#             continue
+#             # пропуск СМЭ не из Ростова
+#         if sheet_name == 'СМЭ' and not 'Ростов' in excel_file:
+#             print(f'Пропущен лист СМЭ в файле {excel_file}')
+#             continue
+#         current_sheet = exps.sheet_by_name(sheet_name)
+#         rows = [current_sheet.row_values(x) for x in range(1, current_sheet.nrows)]
+#         if not rows:
+#             # print(f'В файле "{excel_file.split(backslash_char)[-1]}" пустой лист "{sheet_name}"')
+#             continue
+#         if current_sheet in renamed_sheets:
+#             sheet_name = renamed_sheets[sheet_name]
+#         table_name = f'Week_{current_week}_{sheet_name}_Exps'
+#         res = insert_data_to_db.table_query_exps[sheet_name](table_name, rows)
+#         if res:
+#             print(f'Заполнение таблицы {table_name} из файла {excel_file} завершено с ошибками')
+#     exps.release_resources()
+#     del exps
 
 # Проход по каждому файлам исследований
 for excel_file in xlsx_issls:

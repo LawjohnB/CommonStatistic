@@ -116,7 +116,7 @@ def ia_exps(table_name, rows):
         except:
             exp_date_in = str_date_to_ordinal(row[1])
         if not exp_date_in:
-            print(f'Некорректная дата поступления информационно-аналитической экспертизы {row[0]}')
+            print(f'Некорректная дата поступления информационно-аналитической экспертизы {row[0]} ({row[1]})')
         init_organ = row[2]
         init_ter = row[3]
         init_fio = row[4]
@@ -133,7 +133,7 @@ def ia_exps(table_name, rows):
             except:
                 exp_end_date = str_date_to_ordinal(row[11])
             if not exp_end_date:
-                print(f'Возможно некорректная дата окончания информационно-аналитической экспертизы {row[0]}')
+                print(f'Возможно некорректная дата окончания информационно-аналитической экспертизы {row[0]} ({row[11]})')
         exp_result = row[12]
         exp_days_count = str(row[13]).strip('() ').split('.')[0]
         try:
@@ -183,7 +183,7 @@ def lingv_exps(table_name, rows):
         except:
             exp_date_in = str_date_to_ordinal(row[1])
         if not exp_date_in:
-            print(f'Некорректная дата поступления лингвистической экспертизы {row[0]}')
+            print(f'Некорректная дата поступления лингвистической экспертизы {row[0]} ({row[1]})')
         init_organ = row[2]
         init_ter = row[3]
         init_fio = row[4]
@@ -240,13 +240,17 @@ def kt_exps(table_name, rows):
         if not row[0]:
             break
         exp_num = row[0].split(',')[0].strip()
-        difficult = row[0].split(',')[1].strip().capitalize()
+        try:       
+            difficult = row[0].split(',')[1].strip().capitalize()
+        except:
+            difficult = 'Простая'
+            print(table_name, row[0], 'не указана сложность!')
         try:
             exp_date_in = xls_date_to_ordinal(row[1])
         except:
             exp_date_in = str_date_to_ordinal(row[1])
         if not exp_date_in:
-            print(f'Некорректная дата поступления компьютерно-технической экспертизы {row[0]}')
+            print(f'Некорректная дата поступления компьютерно-технической экспертизы {row[0]} ({row[1]})')
         init_organ = row[2]
         init_ter = row[3]
         init_fio = row[4]
@@ -267,7 +271,7 @@ def kt_exps(table_name, rows):
             except:
                 exp_end_date = str_date_to_ordinal(row[15])
             if not exp_end_date:
-                print(f'Возможно некорректная дата окончания информационно-аналитической экспертизы {row[0]}')
+                print(f'Возможно некорректная дата окончания информационно-аналитической экспертизы {row[0]} ({row[15]})')
         exp_result = row[16]
         exp_days_count = str(row[17]).strip('() ').split('.')[0]
         exp_days_count = int(exp_days_count)
@@ -334,7 +338,7 @@ def fa_exps(table_name, rows):
         except:
             exp_date_in = str_date_to_ordinal(row[1])
         if not exp_date_in:
-            print(f'Некорректная дата поступления финансово-аналитической экспертизы {row[0]}')
+            print(f'Некорректная дата поступления финансово-аналитической экспертизы {row[0]} ({row[1]})')
         init_organ = row[2]
         init_ter = row[3]
         init_fio = row[4]
@@ -351,7 +355,7 @@ def fa_exps(table_name, rows):
             except:
                 exp_end_date = str_date_to_ordinal(row[11])
             if not exp_end_date:
-                print(f'Возможно некорректная дата окончания финансово-аналитической экспертизы {row[0]}')
+                print(f'Возможно некорректная дата окончания финансово-аналитической экспертизы {row[0]} ({row[11]})')
         exp_result = row[12]
         exp_days_count = str(row[13]).strip('() ').split('.')[0]
         try:
@@ -400,7 +404,7 @@ def fono_exps(table_name, rows):
         except:
             exp_date_in = str_date_to_ordinal(row[1])
         if not exp_date_in:
-            print(f'Некорректная дата поступления фоноскопической экспертизы {row[0]}')
+            print(f'Некорректная дата поступления фоноскопической экспертизы {row[0]} ({row[1]})')
         init_organ = row[2]
         init_ter = row[3]
         init_fio = row[4]
@@ -474,7 +478,7 @@ def buh_exps(table_name, rows):
         except:
             exp_date_in = str_date_to_ordinal(row[1])
         if not exp_date_in:
-            print(f'Некорректная дата поступления бухгалтерской экспертизы {row[0]}')
+            print(f'Некорректная дата поступления бухгалтерской экспертизы {row[0]} ({row[1]})')
         init_organ = row[2]
         init_ter = row[3]
         init_fio = row[4]
@@ -491,7 +495,7 @@ def buh_exps(table_name, rows):
             except:
                 exp_end_date = str_date_to_ordinal(row[11])
             if not exp_end_date:
-                print(f'Возможно некорректная дата окончания бухгалтерской экспертизы {row[0]}')
+                print(f'Возможно некорректная дата окончания бухгалтерской экспертизы {row[0]} ({row[11]})')
         exp_result = row[12]
         exp_days_count = str(row[13]).strip('() ').split('.')[0]
         try:
@@ -540,7 +544,7 @@ def ocen_exps(table_name, rows):
         except:
             exp_date_in = str_date_to_ordinal(row[1])
         if not exp_date_in:
-            print(f'Некорректная дата поступления оценочной экспертизы {row[0]}')
+            print(f'Некорректная дата поступления оценочной экспертизы {row[0]} ({row[1]})')
         init_organ = row[2]
         init_ter = row[3]
         init_fio = row[4]
@@ -557,7 +561,7 @@ def ocen_exps(table_name, rows):
             except:
                 exp_end_date = str_date_to_ordinal(row[11])
             if not exp_end_date:
-                print(f'Возможно некорректная дата окончания оценочной экспертизы {row[0]}')
+                print(f'Возможно некорректная дата окончания оценочной экспертизы {row[0]} ({row[11]})')
         exp_result = row[12]
         exp_days_count = str(row[13]).strip('() ').split('.')[0]
         try:
@@ -606,7 +610,7 @@ def oiti_exps(table_name, rows):
         except:
             exp_date_in = str_date_to_ordinal(row[1])
         if not exp_date_in:
-            print(f'Некорректная дата поступления ОИТИ экспертизы {row[0]}')
+            print(f'Некорректная дата поступления ОИТИ экспертизы {row[0]} ({row[1]})')
         init_organ = row[2]
         init_ter = row[3]
         init_fio = row[4]
@@ -623,7 +627,7 @@ def oiti_exps(table_name, rows):
             except:
                 exp_end_date = str_date_to_ordinal(row[11])
             if not exp_end_date:
-                print(f'Возможно некорректная дата окончания ОИТИ экспертизы {row[0]}')
+                print(f'Возможно некорректная дата окончания ОИТИ экспертизы {row[0]} ({row[11]})')
         exp_result = row[12]
         exp_days_count = str(row[13]).strip('() ').split('.')[0]
         try:
@@ -672,7 +676,7 @@ def sm_exps(table_name, rows):
         except:
             exp_date_in = str_date_to_ordinal(row[1])
         if not exp_date_in:
-            print(f'Некорректная дата поступления СМ экспертизы {row[0]}')
+            print(f'Некорректная дата поступления СМ экспертизы {row[0]} ({row[1]})')
         init_organ = row[2]
         init_ter = row[3]
         init_fio = row[4]
@@ -689,7 +693,7 @@ def sm_exps(table_name, rows):
             except:
                 exp_end_date = str_date_to_ordinal(row[11])
             if not exp_end_date:
-                print(f'Возможно некорректная дата окончания СМ экспертизы {row[0]}')
+                print(f'Возможно некорректная дата окончания СМ экспертизы {row[0]} ({row[11]})')
         exp_result = row[12]
         objs_count = row[13]
         patient_fio = row[14]
@@ -723,36 +727,423 @@ def sm_exps(table_name, rows):
         sqlite_connection.close()
     return res_with_errors
 
-
-
 # Добавление данных в таблицы исследований
 def nalog_issls(table_name, rows):
-    # print('Налоговые исследования')
-    pass
+    res_with_errors = 0
+    # подключаемся к базе
+    sqlite_connection = sqlite3.connect('Все журналы.db')
+    cursor = sqlite_connection.cursor()
+    for row in rows:
+        if not row[0]:
+            break
+        issl_num = row[0].split(',')[0].strip()
+        try:       
+            difficult = row[0].split(',')[1].strip().capitalize()
+        except:
+            difficult = 'Простое'
+            print(table_name, row[0], 'не указана сложность!')
+        try:
+            issl_date_in = xls_date_to_ordinal(row[1])
+        except:
+            issl_date_in = str_date_to_ordinal(row[1])
+        if not issl_date_in:
+            print(f'Некорректная дата поступления налогового исследования {row[0]} ({row[1]})')
+        init_organ = row[2]
+        init_ter = row[3]
+        init_fio = row[4]
+        mat_number = row[5]
+        uk_state = row[6]
+        exp_fio = row[7]
+        objs_count = row[8]
+        issl_status = row[9].capitalize()
+        issl_end_date = 0
+        if issl_status.capitalize() != 'В производстве':
+            try:
+                issl_end_date = xls_date_to_ordinal(row[10])
+            except:
+                issl_end_date = str_date_to_ordinal(row[10])
+            if not issl_end_date:
+                print(f'Возможно некорректная дата окончания налогового исследования {row[0]} ({row[10]})')
+        issl_result = row[11]
+        issl_days_count = str(row[12]).strip('() ').split('.')[0]
+        try:
+            issl_days_count = int(issl_days_count)
+        except:
+            issl_days_count = datetime.toordinal(datetime.now()) - issl_date_in
+        persons_est = int(row[13]) if row[13] else 0
+        facts_est = int(row[14]) if row[14] else 0
+
+        # занесение данных в БД
+        try:    
+            sqlite_insert_with_param = f'''INSERT INTO {table_name}
+                  (issl_number, difficult, issl_in_date, initiator_organ, initiator_territory,
+                  initiator_fio, mat_number, UK_state, exps_fio, objs_count, issl_status,
+                  issl_end_date, issl_result, issl_days_count, crime_persons_est, facts_est)
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
+
+            data_tuple = (issl_num, difficult, issl_date_in, init_organ, init_ter, init_fio,
+            mat_number, uk_state, exp_fio, objs_count, issl_status, issl_end_date,
+            issl_result, issl_days_count, persons_est, facts_est)
+            cursor.execute(sqlite_insert_with_param, data_tuple)
+        except sqlite3.Error as error:
+            log_data(f'{row[0]}: {str(error)}', 'sql_errors.log')
+            res_with_errors = 1
+    if sqlite_connection:
+        sqlite_connection.commit()
+        sqlite_connection.close()
+    return res_with_errors
 
 def ia_issls(table_name, rows):
-    # print('ИА исследования')
-    pass
+    res_with_errors = 0
+    # подключаемся к базе
+    sqlite_connection = sqlite3.connect('Все журналы.db')
+    cursor = sqlite_connection.cursor()
+    for row in rows:
+        if not row[0]:
+            break
+        issl_num = row[0].split(',')[0].strip()
+        try:       
+            difficult = row[0].split(',')[1].strip().capitalize()
+        except:
+            difficult = 'Простое'
+            print(table_name, row[0], 'не указана сложность!')
+        try:
+            issl_date_in = xls_date_to_ordinal(row[1])
+        except:
+            issl_date_in = str_date_to_ordinal(row[1])
+        if not issl_date_in:
+            print(f'Некорректная дата поступления информационно-аналитического исследования {row[0]} ({row[1]})')
+        init_organ = row[2]
+        init_ter = row[3]
+        init_fio = row[4]
+        mat_number = row[5]
+        uk_state = row[6]
+        exp_fio = row[7]
+        objs_count = row[8]
+        issl_status = row[9].capitalize()
+        issl_end_date = 0
+        if issl_status.capitalize() != 'В производстве':
+            try:
+                issl_end_date = xls_date_to_ordinal(row[10])
+            except:
+                issl_end_date = str_date_to_ordinal(row[10])
+            if not issl_end_date:
+                print(f'Возможно некорректная дата окончания информационно-аналитического исследования {row[0]} ({row[10]})')
+        issl_result = row[11]
+        issl_days_count = str(row[12]).strip('() ').split('.')[0]
+        try:
+            issl_days_count = int(issl_days_count)
+        except:
+            issl_days_count = datetime.toordinal(datetime.now()) - issl_date_in
+        persons_est = int(row[13]) if row[13] else 0
+        facts_est = int(row[14]) if row[14] else 0
+
+        # занесение данных в БД
+        try:    
+            sqlite_insert_with_param = f'''INSERT INTO {table_name}
+                  (issl_number, difficult, issl_in_date, initiator_organ, initiator_territory,
+                  initiator_fio, mat_number, UK_state, exps_fio, objs_count, issl_status,
+                  issl_end_date, issl_result, issl_days_count, crime_persons_est, facts_est)
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
+
+            data_tuple = (issl_num, difficult, issl_date_in, init_organ, init_ter, init_fio,
+            mat_number, uk_state, exp_fio, objs_count, issl_status, issl_end_date,
+            issl_result, issl_days_count, persons_est, facts_est)
+            cursor.execute(sqlite_insert_with_param, data_tuple)
+        except sqlite3.Error as error:
+            log_data(f'{row[0]}: {str(error)}', 'sql_errors.log')
+            res_with_errors = 1
+    if sqlite_connection:
+        sqlite_connection.commit()
+        sqlite_connection.close()
+    return res_with_errors
 
 def lingv_issls(table_name, rows):
-   #  print('Лингв исследования')
-   pass
+    res_with_errors = 0
+    # подключаемся к базе
+    sqlite_connection = sqlite3.connect('Все журналы.db')
+    cursor = sqlite_connection.cursor()
+    for row in rows:
+        if not row[0]:
+            break
+        issl_num = row[0].split(',')[0].strip()
+        try:       
+            difficult = row[0].split(',')[1].strip().capitalize()
+        except:
+            difficult = 'Простое'
+            print(table_name, row[0], 'не указана сложность!')
+        try:
+            issl_date_in = xls_date_to_ordinal(row[1])
+        except:
+            issl_date_in = str_date_to_ordinal(row[1])
+        if not issl_date_in:
+            print(f'Некорректная дата поступления лингвистического исследования {row[0]} ({row[1]})')
+        init_organ = row[2]
+        init_ter = row[3]
+        init_fio = row[4]
+        mat_number = row[5]
+        uk_state = row[6]
+        exp_fio = row[7]
+        objs_info = row[8]
+        objs_count = row[9]
+        issl_status = row[10].capitalize()
+        issl_end_date = 0
+        if issl_status.capitalize() != 'В производстве':
+            try:
+                issl_end_date = xls_date_to_ordinal(row[11])
+            except:
+                issl_end_date = str_date_to_ordinal(row[11])
+            if not issl_end_date:
+                print(f'Возможно некорректная дата окончания лингвистического исследования {row[0]} ({row[11]})')
+        issl_result = row[12]
+        issl_days_count = str(row[13]).strip('() ').split('.')[0]
+        try:
+            issl_days_count = int(issl_days_count)
+        except:
+            issl_days_count = datetime.toordinal(datetime.now()) - issl_date_in
+        persons_est = int(row[14]) if row[14] else 0
+        facts_est = int(row[15]) if row[15] else 0
+
+        # занесение данных в БД
+        try:    
+            sqlite_insert_with_param = f'''INSERT INTO {table_name}
+                  (issl_number, difficult, issl_in_date, initiator_organ, initiator_territory,
+                  initiator_fio, mat_number, UK_state, exps_fio, objs_info, objs_count, issl_status,
+                  issl_end_date, issl_result, issl_days_count, persons_est, facts_est)
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
+
+            data_tuple = (issl_num, difficult, issl_date_in, init_organ, init_ter, init_fio,
+            mat_number, uk_state, exp_fio, objs_info, objs_count, issl_status, issl_end_date,
+            issl_result, issl_days_count, persons_est, facts_est)
+            cursor.execute(sqlite_insert_with_param, data_tuple)
+        except sqlite3.Error as error:
+            log_data(f'{row[0]}: {str(error)}', 'sql_errors.log')
+            res_with_errors = 1
+    if sqlite_connection:
+        sqlite_connection.commit()
+        sqlite_connection.close()
+    return res_with_errors
 
 def kt_issls(table_name, rows):
-    # print('КТ исследования')
-    pass
+    res_with_errors = 0
+    # подключаемся к базе
+    sqlite_connection = sqlite3.connect('Все журналы.db')
+    cursor = sqlite_connection.cursor()
+    for row in rows:
+        if not row[0]:
+            break
+        issl_num = row[0].split(',')[0].strip()
+        try:       
+            difficult = row[0].split(',')[1].strip().capitalize()
+        except:
+            difficult = 'Простая'
+            print(table_name, row[0], 'не указана сложность!')
+        try:
+            issl_date_in = xls_date_to_ordinal(row[1])
+        except:
+            issl_date_in = str_date_to_ordinal(row[1])
+        if not issl_date_in:
+            print(f'Некорректная дата поступления компьютерно-технической экспертизы {row[0]} ({row[1]})')
+        init_organ = row[2]
+        init_ter = row[3]
+        init_fio = row[4]
+        mat_number = row[5]
+        uk_state = row[6]
+        fabula = row[7]
+        exp_fio = row[8]
+        objects_info = row[9]
+        objs_first_count = row[10]
+        objs_first_mobile = row[11]
+        objs_first_digital = row[12]
+        issl_status = row[13].capitalize()
+        issl_end_date = 0
+        if issl_status.capitalize() != 'В производстве':
+            try:
+                issl_end_date = xls_date_to_ordinal(row[14])
+            except:
+                issl_end_date = str_date_to_ordinal(row[14])
+            if not issl_end_date:
+                print(f'Возможно некорректная дата окончания информационно-аналитической экспертизы {row[0]} ({row[14]})')
+        issl_result = row[15]
+        issl_days_count = str(row[16]).strip('() ').split('.')[0]
+        issl_days_count = int(issl_days_count)
+        # 17 - лиц установлено всегда 0, пропуск
+        facts_est = int(row[18]) if row[18] else 0
+        issl_vyvod = row[19]
+        try: 
+            objs_finish_count = int(row[20]) if row[20] else 0
+        except:
+            objs_finish_count = 0
+
+        # занесение данных в БД
+        try:    
+            sqlite_insert_with_param = f'''INSERT INTO {table_name}
+                  (issl_number, difficult, issl_in_date, initiator_organ,
+                  initiator_territory, initiator_fio,
+                  mat_number, UK_state, fabula, exp_fio,
+                  objects_info, objs_first_count, objs_first_mobile,
+                  objs_first_digital, issl_status, issl_end_date,
+                  issl_result, issl_days_count, facts_est, issl_vyvod, 
+                  objs_count_finish, server, computer_stat, computer_mobile, HDD, flash, CompactDisk,
+                  AudioTEch, OtherComp, PaperDocs, MobilePhone, SIMcard, VideoRecorder,
+                  PhotoVideoTech, Videofiles, DigitalPhotos, MailserverDatabase, EmailLetter, TabletPC,
+                  UDvolume, AirbagControlUnit, GPStrack, FitnessBracelet, Router, EmailBox,
+                  CloudServer, Database, Systemboard)
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                          ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  
+                          ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
+
+    # кортеж основных параметров
+            data_tuple_main = (issl_num, difficult, issl_date_in, init_organ, init_ter, init_fio,
+            mat_number, uk_state, fabula, exp_fio, objects_info, objs_first_count, 
+            objs_first_mobile, objs_first_digital, issl_status, issl_end_date,
+            issl_result, issl_days_count, facts_est, issl_vyvod, objs_finish_count)
+
+    # кортеж количества объектов
+            data_obj_tuple = tuple(row[22:49])
+            data_tuple = data_tuple_main + data_obj_tuple
+            cursor.execute(sqlite_insert_with_param, data_tuple)
+        except sqlite3.Error as error:
+            log_data(f'{row[0]}: {str(error)}', 'sql_errors.log')
+            res_with_errors = 1
+    if sqlite_connection:
+        sqlite_connection.commit()
+        sqlite_connection.close()
+    return res_with_errors
 
 def fa_issls(table_name, rows):
-    # print('ФА исследования')
-    pass
+    res_with_errors = 0
+    # подключаемся к базе
+    sqlite_connection = sqlite3.connect('Все журналы.db')
+    cursor = sqlite_connection.cursor()
+    for row in rows:
+        if not row[0]:
+            break
+        issl_num = row[0].split(',')[0].strip()
+        try:       
+            difficult = row[0].split(',')[1].strip().capitalize()
+        except:
+            difficult = 'Простое'
+            print(table_name, row[0], 'не указана сложность!')
+        try:
+            issl_date_in = xls_date_to_ordinal(row[1])
+        except:
+            issl_date_in = str_date_to_ordinal(row[1])
+        if not issl_date_in:
+            print(f'Некорректная дата поступления ФА исследования {row[0]} ({row[1]})')
+        init_organ = row[2]
+        init_ter = row[3]
+        init_fio = row[4]
+        mat_number = row[5]
+        uk_state = row[6]
+        exp_fio = row[7]
+        objs_count = row[8]
+        issl_status = row[9].capitalize()
+        issl_end_date = 0
+        if issl_status.capitalize() != 'В производстве':
+            try:
+                issl_end_date = xls_date_to_ordinal(row[10])
+            except:
+                issl_end_date = str_date_to_ordinal(row[10])
+            if not issl_end_date:
+                print(f'Возможно некорректная дата окончания ФА исследования {row[0]} ({row[10]})')
+        issl_result = row[11]
+        issl_days_count = str(row[12]).strip('() ').split('.')[0]
+        try:
+            issl_days_count = int(issl_days_count)
+        except:
+            issl_days_count = datetime.toordinal(datetime.now()) - issl_date_in
+        persons_est = int(row[13]) if row[13] else 0
+        facts_est = int(row[14]) if row[14] else 0
+
+        # занесение данных в БД
+        try:    
+            sqlite_insert_with_param = f'''INSERT INTO {table_name}
+                  (issl_number, difficult, issl_in_date, initiator_organ, initiator_territory,
+                  initiator_fio, mat_number, UK_state, exps_fio, objs_count, issl_status,
+                  issl_end_date, issl_result, issl_days_count, crime_persons_est, facts_est)
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
+
+            data_tuple = (issl_num, difficult, issl_date_in, init_organ, init_ter, init_fio,
+            mat_number, uk_state, exp_fio, objs_count, issl_status, issl_end_date,
+            issl_result, issl_days_count, persons_est, facts_est)
+            cursor.execute(sqlite_insert_with_param, data_tuple)
+        except sqlite3.Error as error:
+            log_data(f'{row[0]}: {str(error)}', 'sql_errors.log')
+            res_with_errors = 1
+    if sqlite_connection:
+        sqlite_connection.commit()
+        sqlite_connection.close()
+    return res_with_errors
 
 def fono_issls(table_name, rows):
     # print('ФОНО исследования')
     pass
 
 def buh_issls(table_name, rows):
-    # print('БУХ исследования')
-    pass
+    res_with_errors = 0
+    # подключаемся к базе
+    sqlite_connection = sqlite3.connect('Все журналы.db')
+    cursor = sqlite_connection.cursor()
+    for row in rows:
+        if not row[0]:
+            break
+        issl_num = row[0].split(',')[0].strip()
+        try:       
+            difficult = row[0].split(',')[1].strip().capitalize()
+        except:
+            difficult = 'Простое'
+            print(table_name, row[0], 'не указана сложность!')
+        try:
+            issl_date_in = xls_date_to_ordinal(row[1])
+        except:
+            issl_date_in = str_date_to_ordinal(row[1])
+        if not issl_date_in:
+            print(f'Некорректная дата поступления бухгалтерского исследования {row[0]} ({row[1]})')
+        init_organ = row[2]
+        init_ter = row[3]
+        init_fio = row[4]
+        mat_number = row[5]
+        uk_state = row[6]
+        exp_fio = row[7]
+        objs_count = row[8]
+        issl_status = row[9].capitalize()
+        issl_end_date = 0
+        if issl_status.capitalize() != 'В производстве':
+            try:
+                issl_end_date = xls_date_to_ordinal(row[10])
+            except:
+                issl_end_date = str_date_to_ordinal(row[10])
+            if not issl_end_date:
+                print(f'Возможно некорректная дата окончания бухгалтерского исследования {row[0]} ({row[10]})')
+        issl_result = row[11]
+        issl_days_count = str(row[12]).strip('() ').split('.')[0]
+        try:
+            issl_days_count = int(issl_days_count)
+        except:
+            issl_days_count = datetime.toordinal(datetime.now()) - issl_date_in
+        persons_est = int(row[13]) if row[13] else 0
+        facts_est = int(row[14]) if row[14] else 0
+
+        # занесение данных в БД
+        try:    
+            sqlite_insert_with_param = f'''INSERT INTO {table_name}
+                  (issl_number, difficult, issl_in_date, initiator_organ, initiator_territory,
+                  initiator_fio, mat_number, UK_state, exps_fio, objs_count, issl_status,
+                  issl_end_date, issl_result, issl_days_count, crime_persons_est, facts_est)
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
+
+            data_tuple = (issl_num, difficult, issl_date_in, init_organ, init_ter, init_fio,
+            mat_number, uk_state, exp_fio, objs_count, issl_status, issl_end_date,
+            issl_result, issl_days_count, persons_est, facts_est)
+            cursor.execute(sqlite_insert_with_param, data_tuple)
+        except sqlite3.Error as error:
+            log_data(f'{row[0]}: {str(error)}', 'sql_errors.log')
+            res_with_errors = 1
+    if sqlite_connection:
+        sqlite_connection.commit()
+        sqlite_connection.close()
+    return res_with_errors
 
 def sm_issls(table_name, rows):
     # print('СМ исследования')
