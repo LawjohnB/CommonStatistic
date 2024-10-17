@@ -58,7 +58,7 @@ def nalog_exps(table_name, rows):
         uk_state = row[6]
         exp_fio = row[7]
         objs_count = row[8]
-        exp_type = row[9]
+        exp_type = row[9].capitalize()
         exp_status = row[10].capitalize()
         exp_end_date = 0
         if exp_status.capitalize() != 'В производстве':
@@ -68,7 +68,7 @@ def nalog_exps(table_name, rows):
                 exp_end_date = str_date_to_ordinal(row[11])
             if not exp_end_date:
                 print(f'Возможно некорректная дата окончания налоговой экспертизы {row[0].split(",")[0].strip()} ({row[11]})')
-        exp_result = row[12]
+        exp_result = row[12].capitalize()
         exp_days_count = str(row[13]).strip('() ').split('.')[0]
         try:
             exp_days_count = int(exp_days_count)
@@ -128,7 +128,7 @@ def ia_exps(table_name, rows):
         uk_state = row[6]
         exp_fio = row[7]
         objs_count = row[8]
-        exp_type = row[9]
+        exp_type = row[9].capitalize()
         exp_status = row[10].capitalize()
         exp_end_date = 0
         if exp_status.capitalize() != 'В производстве':
@@ -200,7 +200,7 @@ def lingv_exps(table_name, rows):
         exp_fio = row[7]
         objs_info = row[8]
         objs_count = row[9]
-        exp_type = row[10]
+        exp_type = row[10].capitalize()
         exp_status = row[11].capitalize()
         exp_end_date = 0
         if exp_status.capitalize() != 'В производстве':
@@ -274,7 +274,7 @@ def kt_exps(table_name, rows):
         objs_first_count = row[10]
         objs_first_mobile = row[11]
         objs_first_digital = row[12]
-        exp_type = row[13]
+        exp_type = row[13].capitalize()
         exp_status = row[14].capitalize()
         exp_end_date = 0
         if exp_status.capitalize() != 'В производстве':
@@ -365,7 +365,7 @@ def fa_exps(table_name, rows):
         uk_state = row[6]
         exp_fio = row[7]
         objs_count = row[8]
-        exp_type = row[9]
+        exp_type = row[9].capitalize()
         exp_status = row[10].capitalize()
         exp_end_date = 0
         if exp_status.capitalize() != 'В производстве':
@@ -437,7 +437,7 @@ def fono_exps(table_name, rows):
         lingv_exps_fio = row[8]
         objs_info = row[9]
         objs_count = row[10]
-        exp_type = row[11]
+        exp_type = row[11].capitalize()
         exp_status = row[12].capitalize()
         exp_end_date = 0
         if exp_status.capitalize() != 'В производстве':
@@ -513,7 +513,7 @@ def buh_exps(table_name, rows):
         uk_state = row[6]
         exp_fio = row[7]
         objs_count = row[8]
-        exp_type = row[9]
+        exp_type = row[9].capitalize()
         exp_status = row[10].capitalize()
         exp_end_date = 0
         if exp_status.capitalize() != 'В производстве':
@@ -583,7 +583,7 @@ def ocen_exps(table_name, rows):
         uk_state = row[6]
         exp_fio = row[7]
         objs_count = row[8]
-        exp_type = row[9]
+        exp_type = row[9].capitalize()
         exp_status = row[10].capitalize()
         exp_end_date = 0
         if exp_status.capitalize() != 'В производстве':
@@ -653,7 +653,7 @@ def oiti_exps(table_name, rows):
         uk_state = row[6]
         exp_fio = row[7]
         objs_count = row[8]
-        exp_type = row[9]
+        exp_type = row[9].capitalize()
         exp_status = row[10].capitalize()
         exp_end_date = 0
         if exp_status.capitalize() != 'В производстве':
@@ -722,7 +722,7 @@ def sm_exps(table_name, rows):
         uk_state = row[6]
         exp_fio = row[7]
         exp_fio_complex = row[8]
-        exp_type = row[9]
+        exp_type = row[9].capitalize()
         exp_status = row[10].capitalize()
         exp_end_date = 0
         if exp_status.capitalize() != 'В производстве':
@@ -732,7 +732,7 @@ def sm_exps(table_name, rows):
                 exp_end_date = str_date_to_ordinal(row[11])
             if not exp_end_date:
                 print(f'Возможно некорректная дата окончания СМ экспертизы {row[0].split(",")[0].strip()} ({row[11]})')
-        exp_result = row[12]
+        exp_result = row[12].capitalize()
         objs_count = row[13]
         patient_fio = row[14]
         patient_status = row[15]
@@ -807,7 +807,7 @@ def nalog_issls(table_name, rows):
                 issl_end_date = str_date_to_ordinal(row[10])
             if not issl_end_date:
                 print(f'Возможно некорректная дата окончания налогового исследования {row[0].split(",")[0].strip()} ({row[10]})')
-        issl_result = row[11]
+        issl_result = row[11].capitalize()
         issl_days_count = str(row[12]).strip('() ').split('.')[0]
         try:
             issl_days_count = int(issl_days_count)
@@ -876,7 +876,7 @@ def ia_issls(table_name, rows):
                 issl_end_date = str_date_to_ordinal(row[10])
             if not issl_end_date:
                 print(f'Возможно некорректная дата окончания информационно-аналитического исследования {row[0].split(",")[0].strip()} ({row[10]})')
-        issl_result = row[11]
+        issl_result = row[11].capitalize()
         issl_days_count = str(row[12]).strip('() ').split('.')[0]
         try:
             issl_days_count = int(issl_days_count)
@@ -946,7 +946,7 @@ def lingv_issls(table_name, rows):
                 issl_end_date = str_date_to_ordinal(row[11])
             if not issl_end_date:
                 print(f'Возможно некорректная дата окончания лингвистического исследования {row[0].split(",")[0].strip()} ({row[11]})')
-        issl_result = row[12]
+        issl_result = row[12].capitalize()
         issl_days_count = str(row[13]).strip('() ').split('.')[0]
         try:
             issl_days_count = int(issl_days_count)
@@ -1019,7 +1019,7 @@ def kt_issls(table_name, rows):
                 issl_end_date = str_date_to_ordinal(row[14])
             if not issl_end_date:
                 print(f'Возможно некорректная дата окончания информационно-аналитической экспертизы {row[0].split(",")[0].strip()} ({row[14]})')
-        issl_result = row[15]
+        issl_result = row[15].capitalize()
         issl_days_count = str(row[16]).strip('() ').split('.')[0]
         issl_days_count = int(issl_days_count)
         # 17 - лиц установлено всегда 0, пропуск
@@ -1103,7 +1103,7 @@ def fa_issls(table_name, rows):
                 issl_end_date = str_date_to_ordinal(row[10])
             if not issl_end_date:
                 print(f'Возможно некорректная дата окончания ФА исследования {row[0].split(",")[0].strip()} ({row[10]})')
-        issl_result = row[11]
+        issl_result = row[11].capitalize()
         issl_days_count = str(row[12]).strip('() ').split('.')[0]
         try:
             issl_days_count = int(issl_days_count)
@@ -1174,7 +1174,7 @@ def fono_issls(table_name, rows):
                 issl_end_date = str_date_to_ordinal(row[12])
             if not issl_end_date:
                 print(f'Возможно некорректная дата окончания фоноскопического исследования {row[0].split(",")[0].strip()} ({row[12]})')
-        issl_result = row[13]
+        issl_result = row[13].capitalize()
         verbatim_duration = row[14]
         idents_count = row[15]
         persons_est = row[16]
@@ -1248,7 +1248,7 @@ def buh_issls(table_name, rows):
                 issl_end_date = str_date_to_ordinal(row[10])
             if not issl_end_date:
                 print(f'Возможно некорректная дата окончания бухгалтерского исследования {row[0].split(",")[0].strip()} ({row[10]})')
-        issl_result = row[11]
+        issl_result = row[11].capitalize()
         issl_days_count = str(row[12]).strip('() ').split('.')[0]
         try:
             issl_days_count = int(issl_days_count)
@@ -1316,12 +1316,12 @@ def sm_issls(table_name, rows):
                 issl_end_date = str_date_to_ordinal(row[10])
             if not issl_end_date:
                 print(f'Возможно некорректная дата окончания СМ исследования {row[0].split(",")[0].strip()} ({row[10]})')
-        issl_result = row[11]
+        issl_result = row[11].capitalize()
         objs_count = row[12]
         patient_fio = row[13]
         patient_status = row[14]
         med_docs = row[15]
-        issl_type = row[16]
+        issl_type = row[16].capitalize()
         issl_days_count = str(row[17]).strip('() ').split('.')[0]
         try:
             issl_days_count = int(issl_days_count)
@@ -1386,7 +1386,7 @@ def okti_sipd(table_name, rows):
         objs_all_count = int(row[12]) if row[12] else 0
         objs_first_mobile = int(row[13]) if row[13] else 0
         objs_first_digital = int(row[14]) if row[14] else 0
-        action_result = row[15]
+        action_result = row[15].capitalize()
         objs_finish_count = int(row[16]) if row[16] else 0        
         data_obj_tuple = tuple([int(x) for x in row[17:44] if x])
         # DataBase
@@ -1455,7 +1455,7 @@ def ofili_sipd(table_name, rows):
         except:
             objs_count = 0
             print(f'ОФиЛИ {row[2]}: {row[3]} некорректное количество объектов: {row[12]}')
-        action_result = row[13]
+        action_result = row[13].capitalize()
         # DataBase
         try:
             sqlite_insert_with_params = f'''INSERT INTO {table_name}
@@ -1507,7 +1507,7 @@ def osmi_sipd(table_name, rows):
         except:
             objs_count = 0
             print(f'ОСМИ {row[2]}: {row[3]} некорректное количество объектов: {row[10]}')
-        action_result = row[11]
+        action_result = row[11].capitalize()
         patient_fio = row[12]
         patient_status = row[13]
         med_docs = row[14]
@@ -1565,7 +1565,7 @@ def sei_sipd(table_name, rows):
         except:
             objs_count = 0
             print(f'СЭИ {row[2]}: {row[3]} некорректное количество объектов: {row[11]}')
-        action_result = row[12]
+        action_result = row[12].capitalize()
         comments = row[13]
         # DataBase
         try:
@@ -1621,7 +1621,7 @@ def oiti_sipd(table_name, rows):
         except:
             objs_count = 0
             print(f'ОИТИ {row[2]}: {row[3]} некорректное количество объектов: {row[11]}')
-        action_result = row[12]
+        action_result = row[12].capitalize()
         # DataBase
         try:
             sqlite_insert_with_params = f'''INSERT INTO {table_name}
@@ -1661,8 +1661,8 @@ def consults(table_name, rows):
         mat_number = row[5]
         uk_state = row[6]
         exps_fio = row[7]
-        cons_type = row[8]
-        result = row[9]
+        cons_type = row[8].capitalize()
+        result = row[9].capitalize()
         # работа с БД
         try:    
             sqlite_insert_with_params = f'''INSERT INTO {table_name}
