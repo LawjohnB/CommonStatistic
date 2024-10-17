@@ -277,11 +277,11 @@ kt_issls = '''
 "mat_number" text,
 "uk_state" text,
 "fabula" text,
-"exps_fio" text,
+"exp_fio" text,
 "objs_info" text,
-"objs_count" integer,
-"objs_mobile" integer,
-"objs_digital" integer,
+"objs_first_count" integer,
+"objs_first_mobile" integer,
+"objs_first_digital" integer,
 "issl_status" text,
 "issl_end_date" integer,
 "issl_result" text,
@@ -578,7 +578,7 @@ osmi_sipd = '''
 "objs_count" integer,
 "action_result" text,
 "patient_fio" text,
-"patient status" text,
+"patient_status" text,
 "med_docs" text
 '''
 
