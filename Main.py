@@ -24,15 +24,15 @@ xlsx_sipd = [file for file in xlsx_files if 'Журнал следственны
 xlsx_consults = [file for file in xlsx_files if 'Журнал консультаций' in file]
 
 # Функция проверки наличия правильного количества файлов нужного вида
-def check_files_count(files):
+def check_files_count(files, files_names):
     if len(files) != 5:
-        print(f'Количество файлов {files} некорректно!')
+        print(f'Количество файлов {files_names} некорректно!')
 
 # контрольная проверка наличия всех файлов (по 5 каждого вида)
-check_files_count(xlsx_exps)
-check_files_count(xlsx_issls)
-check_files_count(xlsx_sipd)
-check_files_count(xlsx_consults)
+check_files_count(xlsx_exps, 'экспертиз')
+check_files_count(xlsx_issls, 'исследований')
+check_files_count(xlsx_sipd, 'СиПД')
+check_files_count(xlsx_consults, 'консультаций')
 
 # Возможные листы
 allowed_sheets = ('НАЛОГ', 'ИАЭ', 'ЛИНГВ', 'КТЭ', 'ФАЭ', 'ФОНО', 'БУХГ', 'ОЦЕН', 'ОИТИ', 'СМЭ')
@@ -91,52 +91,54 @@ for excel_file in xlsx_issls:
         if sheet_name in renamed_sheets:
             sheet_name = renamed_sheets[sheet_name]
         table_name = f'Week_{current_week}_{sheet_name}_Issls'
-        insert_data_to_db.table_query_issls[sheet_name](table_name, rows)
+        # insert_data_to_db.table_query_issls[sheet_name](table_name, rows)
         res = insert_data_to_db.table_query_issls[sheet_name](table_name, rows)
         if res:
             print(f'Заполнение таблицы {table_name} из файла {excel_file} завершено с ошибками')
     issls.release_resources()
     del issls
 
-# # Проход по каждому файлам СиПД
-# for excel_file in xlsx_sipd:
-#     sipd = xlrd.open_workbook(excel_file, on_demand = True)
-#     for sheet_name in sipd.sheet_names():
-#         if sheet_name not in allowed_sheets:
-#             # print(f'В файле "{excel_file.split(backslash_char)[-1]}" пропущен лист "{sheet_name}"')
-#             continue
-#         current_sheet = sipd.sheet_by_name(sheet_name)
-#         rows = [current_sheet.row_values(x) for x in range(1, current_sheet.nrows)]
-#         if not rows:
-#             # print(f'В файле "{excel_file.split(backslash_char)[-1]}" пустой лист "{sheet_name}"')
-#             continue
-#         if sheet_name in renamed_sheets:
-#             sheet_name = renamed_sheets[sheet_name]
-#         table_name = f'Week_{current_week}_{sheet_name}_SiPD'
-#         insert_data_to_db.table_query_sipd[sheet_name](table_name, rows)
-#     sipd.release_resources()
-#     del sipd
+# Проход по каждому файлам СиПД
+for excel_file in xlsx_sipd:
+    sipd = xlrd.open_workbook(excel_file, on_demand = True)
+    for sheet_name in sipd.sheet_names():
+        if sheet_name not in allowed_sheets:
+            # print(f'В файле "{excel_file.split(backslash_char)[-1]}" пропущен лист "{sheet_name}"')
+            continue
+        current_sheet = sipd.sheet_by_name(sheet_name)
+        rows = [current_sheet.row_values(x) for x in range(1, current_sheet.nrows)]
+        if not rows:
+            # print(f'В файле "{excel_file.split(backslash_char)[-1]}" пустой лист "{sheet_name}"')
+            continue
+        if sheet_name in renamed_sheets:
+            sheet_name = renamed_sheets[sheet_name]
+        table_name = f'Week_{current_week}_{sheet_name}_SiPD'
+        res = insert_data_to_db.table_query_sipd[sheet_name](table_name, rows)
+        if res:
+            print(f'Заполнение таблицы {table_name} из файла {excel_file} завершено с ошибками')
+    sipd.release_resources()
+    del sipd
 
 
-# # Проход по каждому файлу консультаций и командировок
-# for excel_file in xlsx_consults:
-#     # консультации
-#     xlsx_consults = xlrd.open_workbook(excel_file, on_demand = True)
-#     current_sheet = xlsx_consults.sheet_by_name('Иная_деятельность')
-#     rows = [current_sheet.row_values(x) for x in range(1, current_sheet.nrows)]
-#     if not rows:
-#         print(f'В файле "{excel_file.split(backslash_char)[-1]}" пустой лист консультаций')
-#         continue
-#     table_name = f'Week_{current_week}_Consults'
-#     insert_data_to_db.consults(table_name, rows)
-#     # командировки
-#     xlsx_trips = xlrd.open_workbook(excel_file, on_demand = True)
-#     current_sheet = xlsx_trips.sheet_by_name('Командировки')
-#     rows = [current_sheet.row_values(x) for x in range(1, current_sheet.nrows)]
-#     if not rows:
-#         print(f'В файле "{excel_file.split(backslash_char)[-1]}" пустой лист командировок')
-#         continue
-#     table_name = f'Week_{current_week}_Trips'
-#     insert_data_to_db.trips(table_name, rows)
-#     xlsx_consults.release_resources()
-#     del xlsx_consults
+# Проход по каждому файлу консультаций и командировок
+for excel_file in xlsx_consults:
+    # консультации
+    xlsx_consults = xlrd.open_workbook(excel_file, on_demand = True)
+    current_sheet = xlsx_consults.sheet_by_name('Иная_деятельность')
+    rows = [current_sheet.row_values(x) for x in range(1, current_sheet.nrows)]
+    if not rows:
+        print(f'В файле "{excel_file.split(backslash_char)[-1]}" пустой лист консультаций')
+        continue
+    table_name = f'Week_{current_week}_Consults'
+    insert_data_to_db.consults(table_name, rows)
+    # командировки
+    xlsx_trips = xlrd.open_workbook(excel_file, on_demand = True)
+    current_sheet = xlsx_trips.sheet_by_name('Командировки')
+    rows = [current_sheet.row_values(x) for x in range(1, current_sheet.nrows)]
+    if not rows:
+        print(f'В файле "{excel_file.split(backslash_char)[-1]}" пустой лист командировок')
+        continue
+    table_name = f'Week_{current_week}_Trips'
+    insert_data_to_db.trips(table_name, rows)
+    xlsx_consults.release_resources()
+    del xlsx_consults
