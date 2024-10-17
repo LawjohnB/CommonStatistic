@@ -83,7 +83,7 @@ def nalog_exps(table_name, rows):
 
         # занесение данных в БД
         try:    
-            sqlite_insert_with_param = f'''INSERT INTO {table_name}
+            sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (exp_number, difficult, exp_in_date, initiator_organ, initiator_territory,
                   initiator_fio, mat_number, UK_state, exps_fio, objs_count, exp_type, exp_status,
                   exp_end_date, exp_result, exp_days_count, crime_persons_est, facts_est)
@@ -92,7 +92,7 @@ def nalog_exps(table_name, rows):
             data_tuple = (exp_num, difficult, exp_date_in, init_organ, init_ter, init_fio,
             mat_number, uk_state, exp_fio, objs_count, exp_type, exp_status, exp_end_date,
             exp_result, exp_days_count, persons_est, facts_est)
-            cursor.execute(sqlite_insert_with_param, data_tuple)
+            cursor.execute(sqlite_insert_with_params, data_tuple)
         except sqlite3.Error as error:
             log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
@@ -153,7 +153,7 @@ def ia_exps(table_name, rows):
 
         # занесение данных в БД
         try:    
-            sqlite_insert_with_param = f'''INSERT INTO {table_name}
+            sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (exp_number, difficult, exp_in_date, initiator_organ, initiator_territory,
                   initiator_fio, mat_number, UK_state, exps_fio, objs_count, exp_type, exp_status,
                   exp_end_date, exp_result, exp_days_count, crime_persons_est, facts_est)
@@ -162,7 +162,7 @@ def ia_exps(table_name, rows):
             data_tuple = (exp_num, difficult, exp_date_in, init_organ, init_ter, init_fio,
             mat_number, uk_state, exp_fio, objs_count, exp_type, exp_status, exp_end_date,
             exp_result, exp_days_count, persons_est, facts_est)
-            cursor.execute(sqlite_insert_with_param, data_tuple)
+            cursor.execute(sqlite_insert_with_params, data_tuple)
         except sqlite3.Error as error:
             log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
@@ -225,7 +225,7 @@ def lingv_exps(table_name, rows):
 
         # занесение данных в БД
         try:    
-            sqlite_insert_with_param = f'''INSERT INTO {table_name}
+            sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (exp_number, difficult, exp_in_date, initiator_organ, initiator_territory,
                   initiator_fio, mat_number, UK_state, exps_fio, objs_info, objs_count, exp_type, exp_status,
                   exp_end_date, exp_result, exp_days_count, crime_persons_est, facts_est)
@@ -234,7 +234,7 @@ def lingv_exps(table_name, rows):
             data_tuple = (exp_num, difficult, exp_date_in, init_organ, init_ter, init_fio,
             mat_number, uk_state, exp_fio, objs_info, objs_count, exp_type, exp_status, exp_end_date,
             exp_result, exp_days_count, crime_persons_est, facts_est)
-            cursor.execute(sqlite_insert_with_param, data_tuple)
+            cursor.execute(sqlite_insert_with_params, data_tuple)
         except sqlite3.Error as error:
             log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
@@ -304,7 +304,7 @@ def kt_exps(table_name, rows):
 
         # занесение данных в БД
         try:    
-            sqlite_insert_with_param = f'''INSERT INTO {table_name}
+            sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (exp_number, difficult, exp_in_date, initiator_organ,
                   initiator_territory, initiator_fio,
                   mat_number, UK_state, fabula, exps_fio,
@@ -329,7 +329,7 @@ def kt_exps(table_name, rows):
     # кортеж количества объектов
             data_obj_tuple = tuple(row[22:49])
             data_tuple = data_tuple_main + data_obj_tuple
-            cursor.execute(sqlite_insert_with_param, data_tuple)
+            cursor.execute(sqlite_insert_with_params, data_tuple)
         except sqlite3.Error as error:
             log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
@@ -390,7 +390,7 @@ def fa_exps(table_name, rows):
 
         # занесение данных в БД
         try:    
-            sqlite_insert_with_param = f'''INSERT INTO {table_name}
+            sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (exp_number, difficult, exp_in_date, initiator_organ, initiator_territory,
                   initiator_fio, mat_number, UK_state, exps_fio, objs_count, exp_type, exp_status,
                   exp_end_date, exp_result, exp_days_count, crime_persons_est, facts_est)
@@ -399,7 +399,7 @@ def fa_exps(table_name, rows):
             data_tuple = (exp_num, difficult, exp_date_in, init_organ, init_ter, init_fio,
             mat_number, uk_state, exp_fio, objs_count, exp_type, exp_status, exp_end_date,
             exp_result, exp_days_count, persons_est, facts_est)
-            cursor.execute(sqlite_insert_with_param, data_tuple)
+            cursor.execute(sqlite_insert_with_params, data_tuple)
         except sqlite3.Error as error:
             log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
@@ -465,7 +465,7 @@ def fono_exps(table_name, rows):
 
         # занесение данных в БД
         try:    
-            sqlite_insert_with_param = f'''INSERT INTO {table_name}
+            sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (exp_number, difficult, exp_in_date, initiator_organ, initiator_territory,
                   initiator_fio, mat_number, UK_state, acoustic_exps_fio, lingv_exps_fio, objs_info,
                   objs_count, exp_type, exp_status, exp_end_date, exp_result, verbatim_duration,
@@ -476,7 +476,7 @@ def fono_exps(table_name, rows):
                         acoustic_exps_fio, lingv_exps_fio, objs_info, objs_count, exp_type,
                         exp_status, exp_end_date, exp_result, verbatim_duration, idents_count,
                         persons_est, exp_days_count, crime_persons_est, facts_est)
-            cursor.execute(sqlite_insert_with_param, data_tuple)
+            cursor.execute(sqlite_insert_with_params, data_tuple)
         except sqlite3.Error as error:
             log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
@@ -538,7 +538,7 @@ def buh_exps(table_name, rows):
 
         # занесение данных в БД
         try:    
-            sqlite_insert_with_param = f'''INSERT INTO {table_name}
+            sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (exp_number, difficult, exp_in_date, initiator_organ, initiator_territory,
                   initiator_fio, mat_number, UK_state, exps_fio, objs_count, exp_type, exp_status,
                   exp_end_date, exp_result, exp_days_count, crime_persons_est, facts_est)
@@ -547,7 +547,7 @@ def buh_exps(table_name, rows):
             data_tuple = (exp_num, difficult, exp_date_in, init_organ, init_ter, init_fio,
             mat_number, uk_state, exp_fio, objs_count, exp_type, exp_status, exp_end_date,
             exp_result, exp_days_count, persons_est, facts_est)
-            cursor.execute(sqlite_insert_with_param, data_tuple)
+            cursor.execute(sqlite_insert_with_params, data_tuple)
         except sqlite3.Error as error:
             log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
@@ -608,7 +608,7 @@ def ocen_exps(table_name, rows):
 
         # занесение данных в БД
         try:    
-            sqlite_insert_with_param = f'''INSERT INTO {table_name}
+            sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (exp_number, difficult, exp_in_date, initiator_organ, initiator_territory,
                   initiator_fio, mat_number, UK_state, exps_fio, objs_count, exp_type, exp_status,
                   exp_end_date, exp_result, exp_days_count, crime_persons_est, facts_est)
@@ -617,7 +617,7 @@ def ocen_exps(table_name, rows):
             data_tuple = (exp_num, difficult, exp_date_in, init_organ, init_ter, init_fio,
             mat_number, uk_state, exp_fio, objs_count, exp_type, exp_status, exp_end_date,
             exp_result, exp_days_count, persons_est, facts_est)
-            cursor.execute(sqlite_insert_with_param, data_tuple)
+            cursor.execute(sqlite_insert_with_params, data_tuple)
         except sqlite3.Error as error:
             log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
@@ -678,7 +678,7 @@ def oiti_exps(table_name, rows):
 
         # занесение данных в БД
         try:    
-            sqlite_insert_with_param = f'''INSERT INTO {table_name}
+            sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (exp_number, difficult, exp_in_date, initiator_organ, initiator_territory,
                   initiator_fio, mat_number, UK_state, exps_fio, objs_count, exp_type, exp_status,
                   exp_end_date, exp_result, exp_days_count, crime_persons_est, facts_est)
@@ -687,7 +687,7 @@ def oiti_exps(table_name, rows):
             data_tuple = (exp_num, difficult, exp_date_in, init_organ, init_ter, init_fio,
             mat_number, uk_state, exp_fio, objs_count, exp_type, exp_status, exp_end_date,
             exp_result, exp_days_count, persons_est, facts_est)
-            cursor.execute(sqlite_insert_with_param, data_tuple)
+            cursor.execute(sqlite_insert_with_params, data_tuple)
         except sqlite3.Error as error:
             log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
@@ -751,7 +751,7 @@ def sm_exps(table_name, rows):
 
         # занесение данных в БД
         try:    
-            sqlite_insert_with_param = f'''INSERT INTO {table_name}
+            sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (exp_number, difficult, exp_in_date, initiator_organ, initiator_territory, initiator_fio,
                   mat_number, UK_state, exps_fio, exps_fio_complex, exp_type, exp_status, exp_end_date, exp_result,
                   objs_count, patient_fio, patient_status, med_docs, exp_days_count, crime_persons_est, facts_est)
@@ -760,7 +760,7 @@ def sm_exps(table_name, rows):
             data_tuple = (exp_num, difficult, exp_date_in, init_organ, init_ter, init_fio, mat_number, uk_state,
                           exp_fio, exp_fio_complex, exp_type, exp_status, exp_end_date, exp_result, objs_count,
                           patient_fio, patient_status, med_docs, exp_days_count, crime_persons_est, facts_est)
-            cursor.execute(sqlite_insert_with_param, data_tuple)
+            cursor.execute(sqlite_insert_with_params, data_tuple)
         except sqlite3.Error as error:
             log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
@@ -822,7 +822,7 @@ def nalog_issls(table_name, rows):
 
         # занесение данных в БД
         try:    
-            sqlite_insert_with_param = f'''INSERT INTO {table_name}
+            sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (issl_number, difficult, issl_in_date, initiator_organ, initiator_territory,
                   initiator_fio, mat_number, UK_state, exps_fio, objs_count, issl_status,
                   issl_end_date, issl_result, issl_days_count, crime_persons_est, facts_est)
@@ -831,7 +831,7 @@ def nalog_issls(table_name, rows):
             data_tuple = (issl_num, difficult, issl_date_in, init_organ, init_ter, init_fio,
             mat_number, uk_state, exp_fio, objs_count, issl_status, issl_end_date,
             issl_result, issl_days_count, persons_est, facts_est)
-            cursor.execute(sqlite_insert_with_param, data_tuple)
+            cursor.execute(sqlite_insert_with_params, data_tuple)
         except sqlite3.Error as error:
             log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
@@ -891,7 +891,7 @@ def ia_issls(table_name, rows):
 
         # занесение данных в БД
         try:    
-            sqlite_insert_with_param = f'''INSERT INTO {table_name}
+            sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (issl_number, difficult, issl_in_date, initiator_organ, initiator_territory,
                   initiator_fio, mat_number, UK_state, exps_fio, objs_count, issl_status,
                   issl_end_date, issl_result, issl_days_count, crime_persons_est, facts_est)
@@ -900,7 +900,7 @@ def ia_issls(table_name, rows):
             data_tuple = (issl_num, difficult, issl_date_in, init_organ, init_ter, init_fio,
             mat_number, uk_state, exp_fio, objs_count, issl_status, issl_end_date,
             issl_result, issl_days_count, persons_est, facts_est)
-            cursor.execute(sqlite_insert_with_param, data_tuple)
+            cursor.execute(sqlite_insert_with_params, data_tuple)
         except sqlite3.Error as error:
             log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
@@ -961,7 +961,7 @@ def lingv_issls(table_name, rows):
 
         # занесение данных в БД
         try:    
-            sqlite_insert_with_param = f'''INSERT INTO {table_name}
+            sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (issl_number, difficult, issl_in_date, initiator_organ, initiator_territory,
                   initiator_fio, mat_number, UK_state, exps_fio, objs_info, objs_count, issl_status,
                   issl_end_date, issl_result, issl_days_count, persons_est, facts_est)
@@ -970,7 +970,7 @@ def lingv_issls(table_name, rows):
             data_tuple = (issl_num, difficult, issl_date_in, init_organ, init_ter, init_fio,
             mat_number, uk_state, exp_fio, objs_info, objs_count, issl_status, issl_end_date,
             issl_result, issl_days_count, persons_est, facts_est)
-            cursor.execute(sqlite_insert_with_param, data_tuple)
+            cursor.execute(sqlite_insert_with_params, data_tuple)
         except sqlite3.Error as error:
             log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
@@ -1032,7 +1032,7 @@ def kt_issls(table_name, rows):
 
         # занесение данных в БД
         try:    
-            sqlite_insert_with_param = f'''INSERT INTO {table_name}
+            sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (issl_number, difficult, issl_in_date, initiator_organ,
                   initiator_territory, initiator_fio,
                   mat_number, UK_state, fabula, exp_fio,
@@ -1057,9 +1057,9 @@ def kt_issls(table_name, rows):
     # кортеж количества объектов
             data_obj_tuple = tuple(row[21:48])
             data_tuple = data_tuple_main + data_obj_tuple
-            cursor.execute(sqlite_insert_with_param, data_tuple)
+            cursor.execute(sqlite_insert_with_params, data_tuple)
         except sqlite3.Error as error:
-            log_data(f'{row}: {str(error)}', 'sql_errors.log')
+            log_data(f'({table_name}) {row}:\n{str(error)}\n\n', 'sql_errors.log')
             res_with_errors = 1
     if sqlite_connection:
         sqlite_connection.commit()
@@ -1118,7 +1118,7 @@ def fa_issls(table_name, rows):
 
         # занесение данных в БД
         try:    
-            sqlite_insert_with_param = f'''INSERT INTO {table_name}
+            sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (issl_number, difficult, issl_in_date, initiator_organ, initiator_territory,
                   initiator_fio, mat_number, UK_state, exps_fio, objs_count, issl_status,
                   issl_end_date, issl_result, issl_days_count, crime_persons_est, facts_est)
@@ -1127,7 +1127,7 @@ def fa_issls(table_name, rows):
             data_tuple = (issl_num, difficult, issl_date_in, init_organ, init_ter, init_fio,
             mat_number, uk_state, exp_fio, objs_count, issl_status, issl_end_date,
             issl_result, issl_days_count, persons_est, facts_est)
-            cursor.execute(sqlite_insert_with_param, data_tuple)
+            cursor.execute(sqlite_insert_with_params, data_tuple)
         except sqlite3.Error as error:
             log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
@@ -1192,7 +1192,7 @@ def fono_issls(table_name, rows):
 
         # занесение данных в БД
         try:    
-            sqlite_insert_with_param = f'''INSERT INTO {table_name}
+            sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (issl_number, difficult, issl_in_date, initiator_organ, initiator_territory,
                   initiator_fio, mat_number, UK_state, acoustic_exps_fio, lingv_exps_fio, objs_info,
                   objs_count, issl_status, issl_end_date, issl_result, verbatim_duration,
@@ -1203,7 +1203,7 @@ def fono_issls(table_name, rows):
                         acoustic_exps_fio, lingv_exps_fio, objs_info, objs_count, issl_status, issl_end_date,
                         issl_result, verbatim_duration, idents_count, persons_est, issl_days_count,
                         crime_persons_est, facts_est)
-            cursor.execute(sqlite_insert_with_param, data_tuple)
+            cursor.execute(sqlite_insert_with_params, data_tuple)
         except sqlite3.Error as error:
             log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
@@ -1263,7 +1263,7 @@ def buh_issls(table_name, rows):
 
         # занесение данных в БД
         try:    
-            sqlite_insert_with_param = f'''INSERT INTO {table_name}
+            sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (issl_number, difficult, issl_in_date, initiator_organ, initiator_territory,
                   initiator_fio, mat_number, UK_state, exps_fio, objs_count, issl_status,
                   issl_end_date, issl_result, issl_days_count, crime_persons_est, facts_est)
@@ -1272,7 +1272,7 @@ def buh_issls(table_name, rows):
             data_tuple = (issl_num, difficult, issl_date_in, init_organ, init_ter, init_fio,
             mat_number, uk_state, exp_fio, objs_count, issl_status, issl_end_date,
             issl_result, issl_days_count, persons_est, facts_est)
-            cursor.execute(sqlite_insert_with_param, data_tuple)
+            cursor.execute(sqlite_insert_with_params, data_tuple)
         except sqlite3.Error as error:
             log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
@@ -1336,7 +1336,7 @@ def sm_issls(table_name, rows):
 
         # занесение данных в БД
         try:    
-            sqlite_insert_with_param = f'''INSERT INTO {table_name}
+            sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (issl_number, difficult, issl_in_date, initiator_organ, initiator_territory, initiator_fio,
                   mat_number, UK_state, exps_fio, exps_fio_copmlex, issl_type, issl_status, issl_end_date, issl_result,
                   objs_count, patient_fio, patient_status, med_docs, issl_days_count, crime_persons_est, facts_est)
@@ -1345,7 +1345,7 @@ def sm_issls(table_name, rows):
             data_tuple = (issl_num, difficult, issl_date_in, init_organ, init_ter, init_fio, mat_number, uk_state,
                           exp_fio, exp_fio_copmlex, issl_type, issl_status, issl_end_date, issl_result, objs_count,
                           patient_fio, patient_status, med_docs, issl_days_count, crime_persons_est, facts_est)
-            cursor.execute(sqlite_insert_with_param, data_tuple)
+            cursor.execute(sqlite_insert_with_params, data_tuple)
         except sqlite3.Error as error:
             log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
             res_with_errors = 1
@@ -1354,26 +1354,291 @@ def sm_issls(table_name, rows):
         sqlite_connection.close()
     return res_with_errors
 
+    ###################
 # Добавление таблиц СиПД
 def okti_sipd(table_name, rows):
-    # print('ОКТИ СиПД')
-    pass
+    res_with_errors = 0
+    sqlite_connection = sqlite3.connect('Все журналы.db')
+    cursor = sqlite_connection.cursor()
+    for row in rows:
+        # если пустая строка даты действия - конец цикла
+        if not row[2]:
+            break
+        try:
+            date_mat_in = xls_date_to_ordinal(row[1])
+        except:
+            date_mat_in = str_date_to_ordinal(row[1])
+        try:
+            action_date = xls_date_to_ordinal(row[2])
+        except:
+            action_date = str_date_to_ordinal(row[2])
+        if not action_date:
+            print(f'Некорректная дата проведения ОКТИ СиПД \n {row}')
+        action_type = row[3]
+        init_podr = row[4]
+        init_terr = row[5]
+        init_fio = row[6]
+        mat_number = row[7]
+        st_uk = row[8]
+        fabula = row[9]
+        exp_fio = row[10]
+        objs_info = row[11]
+        objs_all_count = int(row[12]) if row[12] else 0
+        objs_first_mobile = int(row[13]) if row[13] else 0
+        objs_first_digital = int(row[14]) if row[14] else 0
+        action_result = row[15]
+        objs_finish_count = int(row[16]) if row[16] else 0        
+        data_obj_tuple = tuple([int(x) for x in row[17:44] if x])
+        # DataBase
+        try:
+            sqlite_insert_with_params = f'''INSERT INTO {table_name}
+                  (date_mat_in, action_date,action_type,initiator_podr,initiator_territory,initiator_fio,
+                   mat_number,st_UK,fabula,exp_fio,objs_info,objs_all_count,
+                   objs_first_mobile,objs_first_digital,action_result,objs_finish_count,
+                   server,computer_stat,computer_mobile,HDD,flash,CompactDisk,AudioTech,
+                   OtherComp, PaperDocs, MobilePhone, SIMcard, VideoRecorder, PhotoVideoTech,
+                   Videofiles, DigitalPhotos, MailserverDatabase, EmailLetter, TabletPC,
+                   UDvolume, AirbagControlUnit, GPStrack, FitnessBracelet, Router, EmailBox,
+                   CloudServer, Database, Systemboard)
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
+                          ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  
+                          ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
+    # кортеж основных параметров
+            data_tuple_main = (date_mat_in, action_date, action_type, init_podr,
+                init_terr, init_fio, mat_number, st_uk, fabula, exp_fio, objs_info,
+                objs_all_count, objs_first_mobile, objs_first_digital, action_result,
+                objs_finish_count)
+    # кортеж количества объектов
+            data_obj_tuple = tuple(row[17:44])
+            data_tuple = data_tuple_main + data_obj_tuple
+            cursor.execute(sqlite_insert_with_params, data_tuple)
+        except sqlite3.Error as error:
+            log_data(f'({table_name}) {row}:\n{str(error)}\n\n', 'sql_errors.log')
+            res_with_errors = 1
+    if sqlite_connection:
+        sqlite_connection.commit()
+        sqlite_connection.close()
+    return res_with_errors
 
 def ofili_sipd(table_name, rows):
-    # print('ОФиЛИ СиПД')
-    pass
+    res_with_errors = 0
+    sqlite_connection = sqlite3.connect('Все журналы.db')
+    cursor = sqlite_connection.cursor()
+    for row in rows:
+        # если пустая строка даты действия - конец цикла
+        if not row[2]:
+            break
+        if row[1]:
+            try:
+                date_mat_in = xls_date_to_ordinal(row[1])
+            except:
+                date_mat_in = str_date_to_ordinal(row[1])
+        else:
+            date_mat_in = 0
+        try:
+            action_date = xls_date_to_ordinal(row[2])
+        except:
+            action_date = str_date_to_ordinal(row[2])
+        if not action_date:
+            print(f'Некорректная дата проведения ОФиЛИ СиПД \n {row}')
+        action_type = row[3]
+        init_podr = row[4]
+        init_terr = row[5]
+        init_fio = row[6]
+        mat_number = row[7]
+        st_uk = row[8]
+        exp_fio = row[9]
+        acoustic_exps_fio = row[10]
+        objs_info = row[11]
+        try:
+            objs_count = int(row[12])
+        except:
+            objs_count = 0
+            print(f'ОФиЛИ {row[2]}: {row[3]} некорректное количество объектов: {row[12]}')
+        action_result = row[13]
+        # DataBase
+        try:
+            sqlite_insert_with_params = f'''INSERT INTO {table_name}
+                  (mat_in_date, action_date, action_type, initiator_podr, initiator_territory, initiator_fio,
+                  mat_number, st_uk, exp_fio, acoustic_exps_fio, objs_info, objs_count, action_result)
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
+    # кортеж основных параметров
+            data_tuple = (date_mat_in, action_date, action_type, init_podr, init_terr, init_fio, 
+                mat_number, st_uk, exp_fio, acoustic_exps_fio, objs_info, objs_count, action_result)
+            cursor.execute(sqlite_insert_with_params, data_tuple)
+        except sqlite3.Error as error:
+            log_data(f'({table_name}) {row}:\n{str(error)}\n\n', 'sql_errors.log')
+            res_with_errors = 1
+    if sqlite_connection:
+        sqlite_connection.commit()
+        sqlite_connection.close()
+    return res_with_errors
 
 def osmi_sipd(table_name, rows):
-    # print('ОСМИ СиПД')
-    pass
+    res_with_errors = 0
+    sqlite_connection = sqlite3.connect('Все журналы.db')
+    cursor = sqlite_connection.cursor()
+    for row in rows:
+        # если пустая строка даты действия - конец цикла
+        if not row[2]:
+            break
+        if row[1]:
+            try:
+                date_mat_in = xls_date_to_ordinal(row[1])
+            except:
+                date_mat_in = str_date_to_ordinal(row[1])
+        else:
+            date_mat_in = 0
+        try:
+            action_date = xls_date_to_ordinal(row[2])
+        except:
+            action_date = str_date_to_ordinal(row[2])
+        if not action_date:
+            print(f'Некорректная дата проведения ОСМИ СиПД \n {row}')
+        action_type = row[3]
+        init_podr = row[4]
+        init_terr = row[5]
+        init_fio = row[6]
+        mat_number = row[7]
+        st_uk = row[8]
+        exp_fio = row[9]
+        try:
+            objs_count = int(row[10])
+        except:
+            objs_count = 0
+            print(f'ОСМИ {row[2]}: {row[3]} некорректное количество объектов: {row[10]}')
+        action_result = row[11]
+        patient_fio = row[12]
+        patient_status = row[13]
+        med_docs = row[14]
+        # DataBase
+        try:
+            sqlite_insert_with_params = f'''INSERT INTO {table_name}
+                  (mat_in_date, action_date, action_type, initiator_podr, initiator_territory,
+                  initiator_fio, mat_number, st_uk, exp_fio, objs_count, action_result, 
+                  patient_fio, patient_status, med_docs)
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
+    # кортеж основных параметров
+            data_tuple = (date_mat_in, action_date, action_type, init_podr,
+                init_terr, init_fio, mat_number, st_uk, exp_fio, objs_count,
+                action_result, patient_fio, patient_status, med_docs)
+            cursor.execute(sqlite_insert_with_params, data_tuple)
+        except sqlite3.Error as error:
+            log_data(f'({table_name}) {row}:\n{str(error)}\n\n', 'sql_errors.log')
+            res_with_errors = 1
+    if sqlite_connection:
+        sqlite_connection.commit()
+        sqlite_connection.close()
+    return res_with_errors
 
 def sei_sipd(table_name, rows):
-    # print('СЭИ СиПД')
-    pass
+    res_with_errors = 0
+    sqlite_connection = sqlite3.connect('Все журналы.db')
+    cursor = sqlite_connection.cursor()
+    for row in rows:
+        # если пустая строка даты действия - конец цикла
+        if not row[2]:
+            break
+        if row[1]:
+            try:
+                date_mat_in = xls_date_to_ordinal(row[1])
+            except:
+                date_mat_in = str_date_to_ordinal(row[1])
+        else:
+            date_mat_in = 0
+        try:
+            action_date = xls_date_to_ordinal(row[2])
+        except:
+            action_date = str_date_to_ordinal(row[2])
+        if not action_date:
+            print(f'Некорректная дата проведения СЭИ СиПД \n {row}')
+        action_type = row[3]
+        init_podr = row[4]
+        init_terr = row[5]
+        init_fio = row[6]
+        mat_number = row[7]
+        st_uk = row[8]
+        exp_fio = row[9]
+        objs_info = row[10]
+        try:
+            objs_count = int(row[11])
+        except:
+            objs_count = 0
+            print(f'СЭИ {row[2]}: {row[3]} некорректное количество объектов: {row[11]}')
+        action_result = row[12]
+        comments = row[13]
+        # DataBase
+        try:
+            sqlite_insert_with_params = f'''INSERT INTO {table_name}
+                  (mat_in_date, action_date, action_type, initiator_podr, initiator_territory,
+                  initiator_fio, mat_number, st_uk, exp_fio, objs_info, objs_count,
+                  action_result, comments)
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
+    # кортеж основных параметров
+            data_tuple = (date_mat_in, action_date, action_type, init_podr,
+                init_terr, init_fio, mat_number, st_uk, exp_fio, objs_info,
+                objs_count, action_result, comments)
+            cursor.execute(sqlite_insert_with_params, data_tuple)
+        except sqlite3.Error as error:
+            log_data(f'({table_name}) {row}:\n{str(error)}\n\n', 'sql_errors.log')
+            res_with_errors = 1
+    if sqlite_connection:
+        sqlite_connection.commit()
+        sqlite_connection.close()
+    return res_with_errors
 
 def oiti_sipd(table_name, rows):
-    # print('ОиТИ СиПД')
-    pass
+    res_with_errors = 0
+    sqlite_connection = sqlite3.connect('Все журналы.db')
+    cursor = sqlite_connection.cursor()
+    for row in rows:
+        # если пустая строка даты действия - конец цикла
+        if not row[2]:
+            break
+        if row[1]:
+            try:
+                date_mat_in = xls_date_to_ordinal(row[1])
+            except:
+                date_mat_in = str_date_to_ordinal(row[1])
+        else:
+            date_mat_in = 0
+        try:
+            action_date = xls_date_to_ordinal(row[2])
+        except:
+            action_date = str_date_to_ordinal(row[2])
+        if not action_date:
+            print(f'Некорректная дата проведения ОИТИ СиПД \n {row}')
+        action_type = row[3]
+        init_podr = row[4]
+        init_terr = row[5]
+        init_fio = row[6]
+        mat_number = row[7]
+        st_uk = row[8]
+        exp_fio = row[9]
+        objs_info = row[10]
+        try:
+            objs_count = int(row[11])
+        except:
+            objs_count = 0
+            print(f'ОИТИ {row[2]}: {row[3]} некорректное количество объектов: {row[11]}')
+        action_result = row[12]
+        # DataBase
+        try:
+            sqlite_insert_with_params = f'''INSERT INTO {table_name}
+                  (mat_in_date, action_date, action_type, initiator_podr, initiator_territory,
+                  initiator_fio, mat_number, st_uk, exp_fio, objs_info, objs_count, action_result)
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
+    # кортеж основных параметров
+            data_tuple = (date_mat_in, action_date, action_type, init_podr, init_terr,
+                init_fio, mat_number, st_uk, exp_fio, objs_info, objs_count, action_result)
+            cursor.execute(sqlite_insert_with_params, data_tuple)
+        except sqlite3.Error as error:
+            log_data(f'({table_name}) {row}:\n{str(error)}\n\n', 'sql_errors.log')
+            res_with_errors = 1
+    if sqlite_connection:
+        sqlite_connection.commit()
+        sqlite_connection.close()
+    return res_with_errors
 
 # Консультации
 def consults(table_name, rows):
@@ -1388,6 +1653,8 @@ def consults(table_name, rows):
             date = xls_date_to_ordinal(row[1])
         except:
             date = str_date_to_ordinal(row[1])
+        if not date:
+            print(f'Некорректная дата консультации {row}')
         exp_direct = row[2]
         init_ter = row[3]
         init_fio = row[4]
@@ -1406,7 +1673,7 @@ def consults(table_name, rows):
             data_tuple = (date, exp_direct, init_ter, init_fio, mat_number, uk_state, exps_fio, cons_type, result)
             cursor.execute(sqlite_insert_with_params, data_tuple)
         except sqlite3.Error as error:
-            log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
+            log_data(f'({table_name}) {row}:\n{str(error)}\n\n', 'sql_errors.log')
             print('При обработке журналов консультаций произошла ошибка')
     sqlite_connection.commit()
     if sqlite_connection:
@@ -1449,7 +1716,7 @@ def trips(table_name, rows):
               init_podr, init_fio, mat_number, st_uk, exp_fio, trip_type, trip_result)
             cursor.execute(sqlite_insert_with_params, data_tuple)
         except sqlite3.Error as error:
-            log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
+            log_data(f'({table_name}) {row}:\n{str(error)}\n\n', 'sql_errors.log')
             print('При обработке журналов командировок произошла ошибка')
     sqlite_connection.commit()
     if sqlite_connection:
