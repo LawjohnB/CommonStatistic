@@ -310,9 +310,9 @@ def kt_exps(table_name, rows):
         facts_est = int(row[19]) if row[19] else 0
         exp_vyvod = row[20]
         try: 
-            objs_finish_count = int(row[21]) if row[21] else 0
+            objs_count = int(row[21]) if row[21] else 0
         except:
-            objs_finish_count = 0
+            objs_count = 0
 
         # занесение данных в БД
         try:    
@@ -323,7 +323,7 @@ def kt_exps(table_name, rows):
                   objects_info, objs_first_count, objs_first_mobile,
                   objs_first_digital, exp_type, exp_status, exp_end_date,
                   exp_result, exp_days_count, facts_est, exp_vyvod, 
-                  objs_count_finish, server, computer_stat, computer_mobile, HDD, flash, CompactDisk,
+                  objs_count, server, computer_stat, computer_mobile, HDD, flash, CompactDisk,
                   AudioTEch, OtherComp, PaperDocs, MobilePhone, SIMcard, VideoRecorder,
                   PhotoVideoTech, Videofiles, DigitalPhotos, MailserverDatabase, EmailLetter, TabletPC,
                   UDvolume, AirbagControlUnit, GPStrack, FitnessBracelet, Router, EmailBox,
@@ -336,7 +336,7 @@ def kt_exps(table_name, rows):
             data_tuple_main = (exp_num, difficult, exp_date_in, init_organ, init_ter, init_fio,
             mat_number, uk_state, fabula, exp_fio, objects_info, objs_first_count, 
             objs_first_mobile, objs_first_digital, exp_type, exp_status, exp_end_date,
-            exp_result, exp_days_count, facts_est, exp_vyvod, objs_finish_count)
+            exp_result, exp_days_count, facts_est, exp_vyvod, objs_count)
 
     # кортеж количества объектов
             data_obj_tuple = tuple(row[22:49])
@@ -1038,9 +1038,9 @@ def kt_issls(table_name, rows):
         facts_est = int(row[18]) if row[18] else 0
         issl_vyvod = row[19]
         try: 
-            objs_finish_count = int(row[20]) if row[20] else 0
+            objs_count = int(row[20]) if row[20] else 0
         except:
-            objs_finish_count = 0
+            objs_count = 0
 
         # занесение данных в БД
         try:    
@@ -1051,7 +1051,7 @@ def kt_issls(table_name, rows):
                   objs_info, objs_first_count, objs_first_mobile,
                   objs_first_digital, issl_status, issl_end_date,
                   issl_result, issl_days_count, facts_est, issl_vyvod, 
-                  objs_count_finish, server, computer_stat, computer_mobile, HDD, flash, CompactDisk,
+                  objs_count, server, computer_stat, computer_mobile, HDD, flash, CompactDisk,
                   AudioTEch, OtherComp, PaperDocs, MobilePhone, SIMcard, VideoRecorder,
                   PhotoVideoTech, Videofiles, DigitalPhotos, MailserverDatabase, EmailLetter, TabletPC,
                   UDvolume, AirbagControlUnit, GPStrack, FitnessBracelet, Router, EmailBox,
@@ -1064,7 +1064,7 @@ def kt_issls(table_name, rows):
             data_tuple_main = (issl_num, difficult, issl_date_in, init_organ, init_ter, init_fio,
             mat_number, uk_state, fabula, exp_fio, objs_info, objs_first_count, 
             objs_first_mobile, objs_first_digital, issl_status, issl_end_date,
-            issl_result, issl_days_count, facts_est, issl_vyvod, objs_finish_count)
+            issl_result, issl_days_count, facts_est, issl_vyvod, objs_count)
 
     # кортеж количества объектов
             data_obj_tuple = tuple(row[21:48])
@@ -1399,14 +1399,14 @@ def okti_sipd(table_name, rows):
         objs_first_mobile = int(row[13]) if row[13] else 0
         objs_first_digital = int(row[14]) if row[14] else 0
         action_result = row[15].capitalize()
-        objs_finish_count = int(row[16]) if row[16] else 0        
+        objs_count = int(row[16]) if row[16] else 0        
         data_obj_tuple = tuple([int(x) for x in row[17:44] if x])
         # DataBase
         try:
             sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (date_mat_in, action_date,action_type,initiator_podr,initiator_territory,initiator_fio,
                    mat_number,st_UK,fabula,exp_fio,objs_info,objs_all_count,
-                   objs_first_mobile,objs_first_digital,action_result,objs_finish_count,
+                   objs_first_mobile,objs_first_digital,action_result,objs_count,
                    server,computer_stat,computer_mobile,HDD,flash,CompactDisk,AudioTech,
                    OtherComp, PaperDocs, MobilePhone, SIMcard, VideoRecorder, PhotoVideoTech,
                    Videofiles, DigitalPhotos, MailserverDatabase, EmailLetter, TabletPC,
@@ -1419,7 +1419,7 @@ def okti_sipd(table_name, rows):
             data_tuple_main = (date_mat_in, action_date, action_type, init_podr,
                 init_terr, init_fio, mat_number, st_uk, fabula, exp_fio, objs_info,
                 objs_all_count, objs_first_mobile, objs_first_digital, action_result,
-                objs_finish_count)
+                objs_count)
     # кортеж количества объектов
             data_obj_tuple = tuple(row[17:44])
             data_tuple = data_tuple_main + data_obj_tuple
