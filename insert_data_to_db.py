@@ -2,9 +2,6 @@ import sqlite3
 import xlrd
 from datetime import datetime
 
-sqlite_connection = sqlite3.connect('Все журналы.db')
-cursor = sqlite_connection.cursor()
-
 # перевод даты Excel в Unix
 def xls_date_to_ordinal(xls_date):
     xls_date = xlrd.xldate_as_tuple(xls_date, 0)
@@ -49,7 +46,7 @@ def log_data(data, file_name):
 def nalog_exps(table_name, rows):
     res_with_errors = 0
     # подключаемся к базе
-    sqlite_connection = sqlite3.connect('Все журналы.db')
+    sqlite_connection = sqlite3.connect('CommonDB.db')
     cursor = sqlite_connection.cursor()
     for row in rows:
         if not row[0]:
@@ -119,7 +116,7 @@ def nalog_exps(table_name, rows):
 def ia_exps(table_name, rows):
     res_with_errors = 0
     # подключаемся к базе
-    sqlite_connection = sqlite3.connect('Все журналы.db')
+    sqlite_connection = sqlite3.connect('CommonDB.db')
     cursor = sqlite_connection.cursor()
     for row in rows:
         if not row[0]:
@@ -190,7 +187,7 @@ def ia_exps(table_name, rows):
 def lingv_exps(table_name, rows):
     res_with_errors = 0
     # подключаемся к базе
-    sqlite_connection = sqlite3.connect('Все журналы.db')
+    sqlite_connection = sqlite3.connect('CommonDB.db')
     cursor = sqlite_connection.cursor()
     for row in rows:
         if not row[0]:
@@ -261,7 +258,7 @@ def lingv_exps(table_name, rows):
 def kt_exps(table_name, rows):
     res_with_errors = 0
     # подключаемся к базе
-    sqlite_connection = sqlite3.connect('Все журналы.db')
+    sqlite_connection = sqlite3.connect('CommonDB.db')
     cursor = sqlite_connection.cursor()
     for row in rows:
         if not row[0]:
@@ -356,7 +353,7 @@ def kt_exps(table_name, rows):
 def fa_exps(table_name, rows):
     res_with_errors = 0
     # подключаемся к базе
-    sqlite_connection = sqlite3.connect('Все журналы.db')
+    sqlite_connection = sqlite3.connect('CommonDB.db')
     cursor = sqlite_connection.cursor()
     for row in rows:
         if not row[0]:
@@ -426,7 +423,7 @@ def fa_exps(table_name, rows):
 def fono_exps(table_name, rows):
     res_with_errors = 0
     # подключаемся к базе
-    sqlite_connection = sqlite3.connect('Все журналы.db')
+    sqlite_connection = sqlite3.connect('CommonDB.db')
     cursor = sqlite_connection.cursor()
     for row in rows:
         if not row[0]:
@@ -504,7 +501,7 @@ def fono_exps(table_name, rows):
 def buh_exps(table_name, rows):
     res_with_errors = 0
     # подключаемся к базе
-    sqlite_connection = sqlite3.connect('Все журналы.db')
+    sqlite_connection = sqlite3.connect('CommonDB.db')
     cursor = sqlite_connection.cursor()
     for row in rows:
         if not row[0]:
@@ -574,7 +571,7 @@ def buh_exps(table_name, rows):
 def ocen_exps(table_name, rows):
     res_with_errors = 0
     # подключаемся к базе
-    sqlite_connection = sqlite3.connect('Все журналы.db')
+    sqlite_connection = sqlite3.connect('CommonDB.db')
     cursor = sqlite_connection.cursor()
     for row in rows:
         if not row[0]:
@@ -644,7 +641,7 @@ def ocen_exps(table_name, rows):
 def oiti_exps(table_name, rows):
     res_with_errors = 0
     # подключаемся к базе
-    sqlite_connection = sqlite3.connect('Все журналы.db')
+    sqlite_connection = sqlite3.connect('CommonDB.db')
     cursor = sqlite_connection.cursor()
     for row in rows:
         if not row[0]:
@@ -713,7 +710,7 @@ def oiti_exps(table_name, rows):
 
 def sm_exps(table_name, rows):
     res_with_errors = 0
-    sqlite_connection = sqlite3.connect('Все журналы.db')
+    sqlite_connection = sqlite3.connect('CommonDB.db')
     cursor = sqlite_connection.cursor()
     for row in rows:
         if not row[0]:
@@ -789,7 +786,7 @@ def sm_exps(table_name, rows):
 def nalog_issls(table_name, rows):
     res_with_errors = 0
     # подключаемся к базе
-    sqlite_connection = sqlite3.connect('Все журналы.db')
+    sqlite_connection = sqlite3.connect('CommonDB.db')
     cursor = sqlite_connection.cursor()
     for row in rows:
         if not row[0]:
@@ -858,7 +855,7 @@ def nalog_issls(table_name, rows):
 def ia_issls(table_name, rows):
     res_with_errors = 0
     # подключаемся к базе
-    sqlite_connection = sqlite3.connect('Все журналы.db')
+    sqlite_connection = sqlite3.connect('CommonDB.db')
     cursor = sqlite_connection.cursor()
     for row in rows:
         if not row[0]:
@@ -927,7 +924,7 @@ def ia_issls(table_name, rows):
 def lingv_issls(table_name, rows):
     res_with_errors = 0
     # подключаемся к базе
-    sqlite_connection = sqlite3.connect('Все журналы.db')
+    sqlite_connection = sqlite3.connect('CommonDB.db')
     cursor = sqlite_connection.cursor()
     for row in rows:
         if not row[0]:
@@ -997,7 +994,7 @@ def lingv_issls(table_name, rows):
 def kt_issls(table_name, rows):
     res_with_errors = 0
     # подключаемся к базе
-    sqlite_connection = sqlite3.connect('Все журналы.db')
+    sqlite_connection = sqlite3.connect('CommonDB.db')
     cursor = sqlite_connection.cursor()
     for row in rows:
         if not row[0]:
@@ -1085,7 +1082,7 @@ def kt_issls(table_name, rows):
 def fa_issls(table_name, rows):
     res_with_errors = 0
     # подключаемся к базе
-    sqlite_connection = sqlite3.connect('Все журналы.db')
+    sqlite_connection = sqlite3.connect('CommonDB.db')
     cursor = sqlite_connection.cursor()
     for row in rows:
         if not row[0]:
@@ -1154,7 +1151,7 @@ def fa_issls(table_name, rows):
 def fono_issls(table_name, rows):
     res_with_errors = 0
     # подключаемся к базе
-    sqlite_connection = sqlite3.connect('Все журналы.db')
+    sqlite_connection = sqlite3.connect('CommonDB.db')
     cursor = sqlite_connection.cursor()
     for row in rows:
         if not row[0]:
@@ -1230,7 +1227,7 @@ def fono_issls(table_name, rows):
 def buh_issls(table_name, rows):
     res_with_errors = 0
     # подключаемся к базе
-    sqlite_connection = sqlite3.connect('Все журналы.db')
+    sqlite_connection = sqlite3.connect('CommonDB.db')
     cursor = sqlite_connection.cursor()
     for row in rows:
         if not row[0]:
@@ -1298,7 +1295,7 @@ def buh_issls(table_name, rows):
 
 def sm_issls(table_name, rows):
     res_with_errors = 0
-    sqlite_connection = sqlite3.connect('Все журналы.db')
+    sqlite_connection = sqlite3.connect('CommonDB.db')
     cursor = sqlite_connection.cursor()
     for row in rows:
         if not row[0]:
@@ -1373,7 +1370,7 @@ def sm_issls(table_name, rows):
 # Добавление таблиц СиПД
 def okti_sipd(table_name, rows):
     res_with_errors = 0
-    sqlite_connection = sqlite3.connect('Все журналы.db')
+    sqlite_connection = sqlite3.connect('CommonDB.db')
     cursor = sqlite_connection.cursor()
     for row in rows:
         # если пустая строка даты действия - конец цикла
@@ -1437,7 +1434,7 @@ def okti_sipd(table_name, rows):
 
 def ofili_sipd(table_name, rows):
     res_with_errors = 0
-    sqlite_connection = sqlite3.connect('Все журналы.db')
+    sqlite_connection = sqlite3.connect('CommonDB.db')
     cursor = sqlite_connection.cursor()
     for row in rows:
         # если пустая строка даты действия - конец цикла
@@ -1491,7 +1488,7 @@ def ofili_sipd(table_name, rows):
 
 def osmi_sipd(table_name, rows):
     res_with_errors = 0
-    sqlite_connection = sqlite3.connect('Все журналы.db')
+    sqlite_connection = sqlite3.connect('CommonDB.db')
     cursor = sqlite_connection.cursor()
     for row in rows:
         # если пустая строка даты действия - конец цикла
@@ -1548,7 +1545,7 @@ def osmi_sipd(table_name, rows):
 
 def sei_sipd(table_name, rows):
     res_with_errors = 0
-    sqlite_connection = sqlite3.connect('Все журналы.db')
+    sqlite_connection = sqlite3.connect('CommonDB.db')
     cursor = sqlite_connection.cursor()
     for row in rows:
         # если пустая строка даты действия - конец цикла
@@ -1604,7 +1601,7 @@ def sei_sipd(table_name, rows):
 
 def oiti_sipd(table_name, rows):
     res_with_errors = 0
-    sqlite_connection = sqlite3.connect('Все журналы.db')
+    sqlite_connection = sqlite3.connect('CommonDB.db')
     cursor = sqlite_connection.cursor()
     for row in rows:
         # если пустая строка даты действия - конец цикла
@@ -1658,7 +1655,7 @@ def oiti_sipd(table_name, rows):
 # Консультации
 def consults(table_name, rows):
     # подключаемся к базе
-    sqlite_connection = sqlite3.connect('Все журналы.db')
+    sqlite_connection = sqlite3.connect('CommonDB.db')
     cursor = sqlite_connection.cursor()
     for row in rows:
         # если нет даты проведения - стоп
@@ -1697,7 +1694,7 @@ def consults(table_name, rows):
 # Командировки
 def trips(table_name, rows):
     # подключаемся к базе
-    sqlite_connection = sqlite3.connect('Все журналы.db')
+    sqlite_connection = sqlite3.connect('CommonDB.db')
     cursor = sqlite_connection.cursor()
     for row in rows:
         # если нет даты стоп
