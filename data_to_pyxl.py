@@ -26,13 +26,34 @@ table_prefix = '_'.join(map(str, (current_week, current_year)))
 # repeated_recieved - поступило повторных
 # mats_complited - количество уголовных дел, по которым проведены (всего материалов?)
 
+
+
+
 colls_shift = {'recieved': -15, 'mat_recieved': 14, 'primary_recieved': 43,
 	'additional_recieved': 72, 'repeated_recieved': 101, 'comission_recieved': 130,
 	'additional_comission_recieved': 159, 'repeated_comission_recieved': 188, 
 	'complex_recieved': 217, 'additional_complex_recieved': 246, 'repeated_complex_recieved': 275,
-	'mats_complited': 331, 'complited': 307, 'complited_objs': 334,
-	'without_exec': 363, 
-	}
+	'mats_complited': 331, 'complited': 307, 'complited_objs': 334, 'without_exec': 363,
+	'complited_terms_less_month': 392, 'complited_terms_1_month': 421, 'complited_terms_2_3_month': 450,
+	'complited_terms_more_3_month': 479, 'primary_completed': 508, 'additional_completed': 537,
+	'repeated_completed': 566, 'comission_completed': 595, 'additional_comission_completed': 624,
+	'repeated_comission_completed': 653, 'complex_completed': 682, 'additional_complex_completed': 711,
+	'repeated_complex_completed': 740, 'npv': 769, 'facts_est': 827}
+
+stable_colls = {'recieved_total': 9, 'mat_recieved_total': 38, 'primary_recieved_total': 67,
+	'additional_recieved_total': 96, 'repeated_recieved_total': 125, 'comission_recieved_total': 154,
+	'additional_comission_recieved_total': 183, 'repeated_comission_recieved_total': 212,
+	'complex_recieved_total': 241, 'additional_complex_recieved_total': 270, 'repeated_complex_recieved_total': 299,
+	'mats_complited': 331, 'complited_exps_total': 328, 'complited_objs_total': 329,
+	'without_exec_total': 387, 'complited_terms_less_month_total': 416, 'complited_terms_1_month_total': 445,
+	'complited_terms_2_3_month_total': 474, 'complited_terms_more_3_month_total': 503,
+	'primary_completed_total': 532, 'additional_completed_total': 561,
+	'repeated_completed_total': 590, 'comission_completed_total': 619, 'additional_comission_completed_total': 648,
+	'repeated_comission_completed_total': 677, 'complex_completed_total': 706,
+	'additional_complex_completed_total': 735, 'repeated_complex_completed_total': 764,
+	'npv_total': 793, 'persons_est_total': 822, 'facts_est_total': 851,
+	'exps_in_work': 880, 'objs_in_work': 881, 'in_work_terms_less_month': 882,
+	'in_work_terms_1_month': 883, 'in_work_terms_2_3_month': 884, 'in_work_terms_more_3_month': 885}
 
 	# Загрузка книги для чтения и записи
 	# data_only=True - считывать только значения (не формулы)
