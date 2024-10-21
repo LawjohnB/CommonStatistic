@@ -98,7 +98,7 @@ def nalog_exps(table_name, rows):
             sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (exp_number, difficult, exp_in_date, initiator_organ, initiator_territory,
                   initiator_fio, mat_number, UK_state, exps_fio, objs_count, exp_type, exp_status,
-                  exp_end_date, exp_result, exp_days_count, crime_persons_est, facts_est)
+                  exp_end_date, exp_result, exp_days_count, persons_est, facts_est)
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
 
             data_tuple = (exp_num, difficult, exp_date_in, init_organ, init_ter, init_fio,
@@ -168,7 +168,7 @@ def ia_exps(table_name, rows):
             sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (exp_number, difficult, exp_in_date, initiator_organ, initiator_territory,
                   initiator_fio, mat_number, UK_state, exps_fio, objs_count, exp_type, exp_status,
-                  exp_end_date, exp_result, exp_days_count, crime_persons_est, facts_est)
+                  exp_end_date, exp_result, exp_days_count, persons_est, facts_est)
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
 
             data_tuple = (exp_num, difficult, exp_date_in, init_organ, init_ter, init_fio,
@@ -232,7 +232,7 @@ def lingv_exps(table_name, rows):
                 exp_days_count = xls_date_to_ordinal(exp_end_date) - xls_date_to_ordinal(exp_date_in)
             else:    
                 exp_days_count = datetime.toordinal(datetime.now()) - datetime.toordinal(exp_date_in)
-        crime_persons_est = int(row[15]) if row[15] else 0
+        persons_est = int(row[15]) if row[15] else 0
         facts_est = int(row[16]) if row[16] else 0
 
         # занесение данных в БД
@@ -240,12 +240,12 @@ def lingv_exps(table_name, rows):
             sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (exp_number, difficult, exp_in_date, initiator_organ, initiator_territory,
                   initiator_fio, mat_number, UK_state, exps_fio, objs_info, objs_count, exp_type, exp_status,
-                  exp_end_date, exp_result, exp_days_count, crime_persons_est, facts_est)
+                  exp_end_date, exp_result, exp_days_count, persons_est, facts_est)
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
 
             data_tuple = (exp_num, difficult, exp_date_in, init_organ, init_ter, init_fio,
             mat_number, uk_state, exp_fio, objs_info, objs_count, exp_type, exp_status, exp_end_date,
-            exp_result, exp_days_count, crime_persons_est, facts_est)
+            exp_result, exp_days_count, persons_est, facts_est)
             cursor.execute(sqlite_insert_with_params, data_tuple)
         except sqlite3.Error as error:
             log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
@@ -306,7 +306,7 @@ def kt_exps(table_name, rows):
                 exp_days_count = xls_date_to_ordinal(exp_end_date) - xls_date_to_ordinal(exp_date_in)
             else:    
                 exp_days_count = datetime.toordinal(datetime.now()) - datetime.toordinal(exp_date_in)
-        # 18 - лиц установлено всегда 0, пропуск
+        persons_est = int(row[18]) if row[18] else 0
         facts_est = int(row[19]) if row[19] else 0
         exp_vyvod = row[20]
         try: 
@@ -318,25 +318,24 @@ def kt_exps(table_name, rows):
         try:    
             sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (exp_number, difficult, exp_in_date, initiator_organ,
-                  initiator_territory, initiator_fio,
-                  mat_number, UK_state, fabula, exps_fio,
-                  objects_info, objs_first_count, objs_first_mobile,
+                  initiator_territory, initiator_fio, mat_number, UK_state,
+                  fabula, exps_fio, objects_info, objs_first_count, objs_first_mobile,
                   objs_first_digital, exp_type, exp_status, exp_end_date,
-                  exp_result, exp_days_count, facts_est, exp_vyvod, 
+                  exp_result, exp_days_count, persons_est, facts_est, exp_vyvod, 
                   objs_count, server, computer_stat, computer_mobile, HDD, flash, CompactDisk,
                   AudioTEch, OtherComp, PaperDocs, MobilePhone, SIMcard, VideoRecorder,
                   PhotoVideoTech, Videofiles, DigitalPhotos, MailserverDatabase, EmailLetter, TabletPC,
                   UDvolume, AirbagControlUnit, GPStrack, FitnessBracelet, Router, EmailBox,
                   CloudServer, Database, Systemboard)
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-                          ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  
+                          ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
                           ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
 
     # кортеж основных параметров
             data_tuple_main = (exp_num, difficult, exp_date_in, init_organ, init_ter, init_fio,
             mat_number, uk_state, fabula, exp_fio, objects_info, objs_first_count, 
             objs_first_mobile, objs_first_digital, exp_type, exp_status, exp_end_date,
-            exp_result, exp_days_count, facts_est, exp_vyvod, objs_count)
+            exp_result, exp_days_count, persons_est, facts_est, exp_vyvod, objs_count)
 
     # кортеж количества объектов
             data_obj_tuple = tuple(row[22:49])
@@ -405,7 +404,7 @@ def fa_exps(table_name, rows):
             sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (exp_number, difficult, exp_in_date, initiator_organ, initiator_territory,
                   initiator_fio, mat_number, UK_state, exps_fio, objs_count, exp_type, exp_status,
-                  exp_end_date, exp_result, exp_days_count, crime_persons_est, facts_est)
+                  exp_end_date, exp_result, exp_days_count, persons_est, facts_est)
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
 
             data_tuple = (exp_num, difficult, exp_date_in, init_organ, init_ter, init_fio,
@@ -553,7 +552,7 @@ def buh_exps(table_name, rows):
             sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (exp_number, difficult, exp_in_date, initiator_organ, initiator_territory,
                   initiator_fio, mat_number, UK_state, exps_fio, objs_count, exp_type, exp_status,
-                  exp_end_date, exp_result, exp_days_count, crime_persons_est, facts_est)
+                  exp_end_date, exp_result, exp_days_count, persons_est, facts_est)
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
 
             data_tuple = (exp_num, difficult, exp_date_in, init_organ, init_ter, init_fio,
@@ -623,7 +622,7 @@ def ocen_exps(table_name, rows):
             sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (exp_number, difficult, exp_in_date, initiator_organ, initiator_territory,
                   initiator_fio, mat_number, UK_state, exps_fio, objs_count, exp_type, exp_status,
-                  exp_end_date, exp_result, exp_days_count, crime_persons_est, facts_est)
+                  exp_end_date, exp_result, exp_days_count, persons_est, facts_est)
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
 
             data_tuple = (exp_num, difficult, exp_date_in, init_organ, init_ter, init_fio,
@@ -693,7 +692,7 @@ def oiti_exps(table_name, rows):
             sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (exp_number, difficult, exp_in_date, initiator_organ, initiator_territory,
                   initiator_fio, mat_number, UK_state, exps_fio, objs_count, exp_type, exp_status,
-                  exp_end_date, exp_result, exp_days_count, crime_persons_est, facts_est)
+                  exp_end_date, exp_result, exp_days_count, persons_est, facts_est)
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
 
             data_tuple = (exp_num, difficult, exp_date_in, init_organ, init_ter, init_fio,
@@ -758,7 +757,7 @@ def sm_exps(table_name, rows):
                 exp_days_count = xls_date_to_ordinal(exp_end_date) - xls_date_to_ordinal(exp_date_in)
             else:    
                 exp_days_count = datetime.toordinal(datetime.now()) - datetime.toordinal(exp_date_in)
-        crime_persons_est = int(row[18]) if row[18] else 0
+        persons_est = int(row[18]) if row[18] else 0
         facts_est = int(row[19]) if row[19] else 0
 
         # занесение данных в БД
@@ -766,12 +765,12 @@ def sm_exps(table_name, rows):
             sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (exp_number, difficult, exp_in_date, initiator_organ, initiator_territory, initiator_fio,
                   mat_number, UK_state, exps_fio, exps_fio_complex, exp_type, exp_status, exp_end_date, exp_result,
-                  objs_count, patient_fio, patient_status, med_docs, exp_days_count, crime_persons_est, facts_est)
+                  objs_count, patient_fio, patient_status, med_docs, exp_days_count, persons_est, facts_est)
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
 
             data_tuple = (exp_num, difficult, exp_date_in, init_organ, init_ter, init_fio, mat_number, uk_state,
                           exp_fio, exp_fio_complex, exp_type, exp_status, exp_end_date, exp_result, objs_count,
-                          patient_fio, patient_status, med_docs, exp_days_count, crime_persons_est, facts_est)
+                          patient_fio, patient_status, med_docs, exp_days_count, persons_est, facts_est)
             cursor.execute(sqlite_insert_with_params, data_tuple)
         except sqlite3.Error as error:
             log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
@@ -837,7 +836,7 @@ def nalog_issls(table_name, rows):
             sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (issl_number, difficult, issl_in_date, initiator_organ, initiator_territory,
                   initiator_fio, mat_number, UK_state, exps_fio, objs_count, issl_status,
-                  issl_end_date, issl_result, issl_days_count, crime_persons_est, facts_est)
+                  issl_end_date, issl_result, issl_days_count, persons_est, facts_est)
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
 
             data_tuple = (issl_num, difficult, issl_date_in, init_organ, init_ter, init_fio,
@@ -906,7 +905,7 @@ def ia_issls(table_name, rows):
             sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (issl_number, difficult, issl_in_date, initiator_organ, initiator_territory,
                   initiator_fio, mat_number, UK_state, exps_fio, objs_count, issl_status,
-                  issl_end_date, issl_result, issl_days_count, crime_persons_est, facts_est)
+                  issl_end_date, issl_result, issl_days_count, persons_est, facts_est)
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
 
             data_tuple = (issl_num, difficult, issl_date_in, init_organ, init_ter, init_fio,
@@ -1034,7 +1033,7 @@ def kt_issls(table_name, rows):
         issl_result = row[15].capitalize()
         issl_days_count = str(row[16]).strip('() ').split('.')[0]
         issl_days_count = int(issl_days_count)
-        # 17 - лиц установлено всегда 0, пропуск
+        persons_est = int(row[17]) if row[17] else 0
         facts_est = int(row[18]) if row[18] else 0
         issl_vyvod = row[19]
         try: 
@@ -1050,13 +1049,13 @@ def kt_issls(table_name, rows):
                   mat_number, UK_state, fabula, exp_fio,
                   objs_info, objs_first_count, objs_first_mobile,
                   objs_first_digital, issl_status, issl_end_date,
-                  issl_result, issl_days_count, facts_est, issl_vyvod, 
+                  issl_result, issl_days_count, persons_est, facts_est, issl_vyvod, 
                   objs_count, server, computer_stat, computer_mobile, HDD, flash, CompactDisk,
                   AudioTEch, OtherComp, PaperDocs, MobilePhone, SIMcard, VideoRecorder,
                   PhotoVideoTech, Videofiles, DigitalPhotos, MailserverDatabase, EmailLetter, TabletPC,
                   UDvolume, AirbagControlUnit, GPStrack, FitnessBracelet, Router, EmailBox,
                   CloudServer, Database, Systemboard)
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
                           ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  
                           ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
 
@@ -1064,7 +1063,7 @@ def kt_issls(table_name, rows):
             data_tuple_main = (issl_num, difficult, issl_date_in, init_organ, init_ter, init_fio,
             mat_number, uk_state, fabula, exp_fio, objs_info, objs_first_count, 
             objs_first_mobile, objs_first_digital, issl_status, issl_end_date,
-            issl_result, issl_days_count, facts_est, issl_vyvod, objs_count)
+            issl_result, issl_days_count, persons_est, facts_est, issl_vyvod, objs_count)
 
     # кортеж количества объектов
             data_obj_tuple = tuple(row[21:48])
@@ -1133,7 +1132,7 @@ def fa_issls(table_name, rows):
             sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (issl_number, difficult, issl_in_date, initiator_organ, initiator_territory,
                   initiator_fio, mat_number, UK_state, exps_fio, objs_count, issl_status,
-                  issl_end_date, issl_result, issl_days_count, crime_persons_est, facts_est)
+                  issl_end_date, issl_result, issl_days_count, persons_est, facts_est)
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
 
             data_tuple = (issl_num, difficult, issl_date_in, init_organ, init_ter, init_fio,
@@ -1199,7 +1198,7 @@ def fono_issls(table_name, rows):
                 issl_days_count = issl_end_date - issl_date_in
             else:    
                 issl_days_count = datetime.toordinal(datetime.now()) - issl_date_in
-        crime_persons_est = int(row[18]) if row[18] else 0
+        persons_est = int(row[18]) if row[18] else 0
         facts_est = int(row[19]) if row[19] else 0
 
         # занесение данных в БД
@@ -1208,13 +1207,13 @@ def fono_issls(table_name, rows):
                   (issl_number, difficult, issl_in_date, initiator_organ, initiator_territory,
                   initiator_fio, mat_number, UK_state, acoustic_exps_fio, lingv_exps_fio, objs_info,
                   objs_count, issl_status, issl_end_date, issl_result, verbatim_duration,
-                  idents_count, persons_est, issl_days_count, crime_persons_est, facts_est)
+                  idents_count, persons_est, issl_days_count, persons_est, facts_est)
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
 
             data_tuple = (issl_num, difficult, issl_date_in, init_organ, init_ter, init_fio, mat_number, uk_state,
                         acoustic_exps_fio, lingv_exps_fio, objs_info, objs_count, issl_status, issl_end_date,
                         issl_result, verbatim_duration, idents_count, persons_est, issl_days_count,
-                        crime_persons_est, facts_est)
+                        persons_est, facts_est)
             cursor.execute(sqlite_insert_with_params, data_tuple)
         except sqlite3.Error as error:
             log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')
@@ -1278,7 +1277,7 @@ def buh_issls(table_name, rows):
             sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (issl_number, difficult, issl_in_date, initiator_organ, initiator_territory,
                   initiator_fio, mat_number, UK_state, exps_fio, objs_count, issl_status,
-                  issl_end_date, issl_result, issl_days_count, crime_persons_est, facts_est)
+                  issl_end_date, issl_result, issl_days_count, persons_est, facts_est)
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
 
             data_tuple = (issl_num, difficult, issl_date_in, init_organ, init_ter, init_fio,
@@ -1343,7 +1342,7 @@ def sm_issls(table_name, rows):
                 issl_days_count = issl_end_date - issl_date_in
             else:    
                 issl_days_count = datetime.toordinal(datetime.now()) - issl_date_in
-        crime_persons_est = int(row[18]) if row[18] else 0
+        persons_est = int(row[18]) if row[18] else 0
         facts_est = int(row[19]) if row[19] else 0
 
         # занесение данных в БД
@@ -1351,12 +1350,12 @@ def sm_issls(table_name, rows):
             sqlite_insert_with_params = f'''INSERT INTO {table_name}
                   (issl_number, difficult, issl_in_date, initiator_organ, initiator_territory, initiator_fio,
                   mat_number, UK_state, exps_fio, exps_fio_copmlex, issl_type, issl_status, issl_end_date, issl_result,
-                  objs_count, patient_fio, patient_status, med_docs, issl_days_count, crime_persons_est, facts_est)
+                  objs_count, patient_fio, patient_status, med_docs, issl_days_count, persons_est, facts_est)
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
 
             data_tuple = (issl_num, difficult, issl_date_in, init_organ, init_ter, init_fio, mat_number, uk_state,
                           exp_fio, exp_fio_copmlex, issl_type, issl_status, issl_end_date, issl_result, objs_count,
-                          patient_fio, patient_status, med_docs, issl_days_count, crime_persons_est, facts_est)
+                          patient_fio, patient_status, med_docs, issl_days_count, persons_est, facts_est)
             cursor.execute(sqlite_insert_with_params, data_tuple)
         except sqlite3.Error as error:
             log_data(f'{row[0].split(",")[0].strip()}: {str(error)}', 'sql_errors.log')

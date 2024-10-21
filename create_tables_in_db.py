@@ -23,6 +23,7 @@ kt_exps = '''
 "exp_end_date" text,
 "exp_result" text,
 "exp_days_count" integer,
+"persons_est" text,
 "facts_est" integer,
 "exp_vyvod" text,
 "objs_count" integer,
@@ -73,7 +74,7 @@ ia_exps = '''
 "exp_end_date" text,
 "exp_result" text,
 "exp_days_count" integer,
-"crime_persons_est" integer,
+"persons_est" integer,
 "facts_est" integer
 '''
 
@@ -96,7 +97,7 @@ lingv_exps = '''
 "exp_end_date" text,
 "exp_result" text,
 "exp_days_count" integer,
-"crime_persons_est" integer,
+"persons_est" integer,
 "facts_est" integer
 '''
 
@@ -145,7 +146,7 @@ buh_exps = '''
 "exp_end_date" text,
 "exp_result" text,
 "exp_days_count" integer,
-"crime_persons_est" integer,
+"persons_est" integer,
 "facts_est" integer
 '''
 
@@ -167,7 +168,7 @@ fa_exps = '''
 "exp_end_date" text,
 "exp_result" text,
 "exp_days_count" integer,
-"crime_persons_est" integer,
+"persons_est" integer,
 "facts_est" integer
 '''
 
@@ -189,7 +190,7 @@ nalog_exps = '''
 "exp_end_date" text,
 "exp_result" text,
 "exp_days_count" integer,
-"crime_persons_est" integer,
+"persons_est" integer,
 "facts_est" integer
 '''
 
@@ -211,7 +212,7 @@ ocen_exps = '''
 "exp_end_date" text,
 "exp_result" text,
 "exp_days_count" integer,
-"crime_persons_est" integer,
+"persons_est" integer,
 "facts_est" integer
 '''
 
@@ -237,7 +238,7 @@ sm_exps = '''
 "patient_status" text,
 "med_docs" text,
 "exp_days_count" integer,
-"crime_persons_est" integer,
+"persons_est" integer,
 "facts_est" integer
 '''
 
@@ -259,7 +260,7 @@ oiti_exps = '''
 "exp_end_date" text,
 "exp_result" text,
 "exp_days_count" integer,
-"crime_persons_est" integer,
+"persons_est" integer,
 "facts_est" integer
 '''
 
@@ -286,6 +287,7 @@ kt_issls = '''
 "issl_end_date" integer,
 "issl_result" text,
 "issl_days_count" integer,
+"persons_est" text,
 "facts_est" integer,
 "issl_vyvod" text,
 "objs_count" integer,
@@ -356,7 +358,7 @@ buh_issls = '''
 "issl_end_date" text,
 "issl_result" text,
 "issl_days_count" integer,
-"crime_persons_est" integer,
+"persons_est" integer,
 "facts_est" integer
 '''
 
@@ -377,7 +379,7 @@ fa_issls = '''
 "issl_end_date" text,
 "issl_result" text,
 "issl_days_count" integer,
-"crime_persons_est" integer,
+"persons_est" integer,
 "facts_est" integer
 '''
 
@@ -398,7 +400,7 @@ nalog_issls = '''
 "issl_end_date" text,
 "issl_result" text,
 "issl_days_count" integer,
-"crime_persons_est" integer,
+"persons_est" integer,
 "facts_est" integer
 '''
 
@@ -472,7 +474,7 @@ sm_issls = '''
 "med_docs" text,
 "issl_type" text,
 "issl_days_count" integer,
-"crime_persons_est" integer,
+"persons_est" integer,
 "facts_est" integer
 '''
 
