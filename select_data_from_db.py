@@ -17,12 +17,12 @@ def query_data(query, fetch='one'):
     sqlite_select_query = query
     cursor.execute(sqlite_select_query)
     if fetch == 'one':
+        # почему-то приходит кортеж с одним значением 
         query_result = cursor.fetchone()[0]
     else:
         query_result = cursor.fetchall()
     cursor.close()
     sqlite_connection.close()
-    # почему-то приходит кортеж с одним значением 
     return query_result
 
  # поступившие
@@ -33,7 +33,7 @@ def get_recieved_exp_count(start_date, end_date, table_name):
     FROM {table_name}
     WHERE exp_in_date
     BETWEEN '{start_date}' AND '{end_date}'
-    AND initiator_fio NOT LIKE '%, СВО'
+    AND initiator_fio NOT LIKE '%СВО'
     '''
     return query_data(query)
 
@@ -44,7 +44,7 @@ def get_recieved_mats_count(start_date, end_date, table_name):
     FROM {table_name}
     WHERE exp_in_date
     BETWEEN '{start_date}' AND '{end_date}'
-    AND initiator_fio NOT LIKE '%, СВО'
+    AND initiator_fio NOT LIKE '%СВО'
     '''
     return query_data(query)
 
@@ -56,7 +56,7 @@ def get_primary_recieved_count(start_date, end_date, table_name):
     WHERE exp_type = 'Первичная'
     AND exp_in_date
     BETWEEN '{start_date}' AND '{end_date}'
-    AND initiator_fio NOT LIKE '%, СВО'
+    AND initiator_fio NOT LIKE '%СВО'
     '''
     return query_data(query)
 
@@ -68,7 +68,7 @@ def get_additional_recieved_count(start_date, end_date, table_name):
     WHERE exp_type = 'Дополнительная'
     AND exp_in_date
     BETWEEN '{start_date}' AND '{end_date}'
-    AND initiator_fio NOT LIKE '%, СВО'
+    AND initiator_fio NOT LIKE '%СВО'
     '''
     return query_data(query)
 
@@ -80,7 +80,7 @@ def get_repeated_recieved_count(start_date, end_date, table_name):
     WHERE exp_type = 'Повторная'
     AND exp_in_date
     BETWEEN '{start_date}' AND '{end_date}'
-    AND initiator_fio NOT LIKE '%, СВО'
+    AND initiator_fio NOT LIKE '%СВО'
     '''
     return query_data(query)
 
@@ -92,7 +92,7 @@ def get_comission_recieved_count(start_date, end_date, table_name):
     WHERE exp_type = 'Комиссионная'
     AND exp_in_date
     BETWEEN '{start_date}' AND '{end_date}'
-    AND initiator_fio NOT LIKE '%, СВО'
+    AND initiator_fio NOT LIKE '%СВО'
     '''
     return query_data(query)
 
@@ -104,7 +104,7 @@ def get_additional_comission_recieved_count(start_date, end_date, table_name):
     WHERE exp_type = 'Дополнительная комиссионная'
     AND exp_in_date
     BETWEEN '{start_date}' AND '{end_date}'
-    AND initiator_fio NOT LIKE '%, СВО'
+    AND initiator_fio NOT LIKE '%СВО'
     '''
     return query_data(query)
 
@@ -116,7 +116,7 @@ def get_repeated_comission_recieved_count(start_date, end_date, table_name):
     WHERE exp_type = 'Повторная комиссионная'
     AND exp_in_date
     BETWEEN '{start_date}' AND '{end_date}'
-    AND initiator_fio NOT LIKE '%, СВО'
+    AND initiator_fio NOT LIKE '%СВО'
     '''
     return query_data(query)
 
@@ -128,7 +128,7 @@ def get_complex_recieved_count(start_date, end_date, table_name):
     WHERE exp_type = 'Комплексная'
     AND exp_in_date
     BETWEEN '{start_date}' AND '{end_date}'
-    AND initiator_fio NOT LIKE '%, СВО'
+    AND initiator_fio NOT LIKE '%СВО'
     '''
     return query_data(query)
 
@@ -140,7 +140,7 @@ def get_additional_complex_recieved_count(start_date, end_date, table_name):
     WHERE exp_type = 'Дополнительная комплексная'
     AND exp_in_date
     BETWEEN '{start_date}' AND '{end_date}'
-    AND initiator_fio NOT LIKE '%, СВО'
+    AND initiator_fio NOT LIKE '%СВО'
     '''
     return query_data(query)
 
@@ -152,7 +152,7 @@ def get_repeated_complex_recieved_count(start_date, end_date, table_name):
     WHERE exp_type = 'Повторная комплексная'
     AND exp_in_date
     BETWEEN '{start_date}' AND '{end_date}'
-    AND initiator_fio NOT LIKE '%, СВО'
+    AND initiator_fio NOT LIKE '%СВО'
     '''
     return query_data(query)
 
@@ -165,19 +165,19 @@ def get_mats_complited(start_date, end_date, table_name):
     WHERE exp_status = 'Сдана'
     AND exp_end_date
     BETWEEN '{start_date}' AND '{end_date}'
-    AND initiator_fio NOT LIKE '%, СВО'
+    AND initiator_fio NOT LIKE '%СВО'
     '''
     return query_data(query)
 
 # всего выполнено
-def get_complited(start_date, end_date, table_name):
+def get_complited_exps(start_date, end_date, table_name):
     query = f'''
     SELECT COUNT(DISTINCT exp_number)
     FROM {table_name}
     WHERE exp_status = 'Сдана'
     AND exp_end_date
     BETWEEN '{start_date}' AND '{end_date}'
-    AND initiator_fio NOT LIKE '%, СВО'
+    AND initiator_fio NOT LIKE '%СВО'
     '''
     return query_data(query)
 
@@ -192,14 +192,16 @@ def get_complited_objs(start_date, end_date, table_name):
         (SELECT DISTINCT exp_number, MAX(objs_count) AS objs_count
         FROM {table_name}
         WHERE exp_status = 'Сдана'
-        AND initiator_fio NOT LIKE '%, СВО'
+        AND initiator_fio NOT LIKE '%СВО'
         AND exp_end_date
         BETWEEN '{start_date}' AND '{end_date}'
         GROUP BY exp_number
         ORDER BY objs_count DESC)
     SELECT SUM(objs_count) FROM get_uniq_objs_by_exps
     '''
-    return query_data(query)
+    # иногда прилетает None, что рушит всё
+    res = query_data(query)
+    return res if res else 0
 
 # возвращённых без исполнения
 def get_without_exec(start_date, end_date, table_name):
@@ -209,7 +211,7 @@ def get_without_exec(start_date, end_date, table_name):
     WHERE exp_status = 'Без исполнения'
     AND exp_end_date
     BETWEEN '{start_date}' AND '{end_date}'
-    AND initiator_fio NOT LIKE '%, СВО'
+    AND initiator_fio NOT LIKE '%СВО'
     '''
     return query_data(query)
 
@@ -240,7 +242,7 @@ def get_complited_terms(start_date, end_date, table_name, status, terms_conditio
             SUBSTRING(TIMEDIFF(exp_end_date, exp_in_date), 7, 2) AS month
             FROM  {table_name}
             WHERE {status}
-            AND initiator_fio NOT LIKE '%, СВО'
+            AND initiator_fio NOT LIKE '%СВО'
             AND exp_end_date
             BETWEEN '{start_date}' AND '{end_date}'
             GROUP BY exp_number)
@@ -261,7 +263,7 @@ def get_primary_completed_count(start_date, end_date, table_name):
     FROM {table_name}
     WHERE exp_type = 'Первичная'
     AND exp_status = 'Сдана'
-    AND initiator_fio NOT LIKE '%, СВО'
+    AND initiator_fio NOT LIKE '%СВО'
     AND exp_end_date
     BETWEEN '{start_date}' AND '{end_date}'
     '''
@@ -274,7 +276,7 @@ def get_additional_completed_count(start_date, end_date, table_name):
     FROM {table_name}
     WHERE exp_type = 'Дополнительная'
     AND exp_status = 'Сдана'
-    AND initiator_fio NOT LIKE '%, СВО'
+    AND initiator_fio NOT LIKE '%СВО'
     AND exp_end_date
     BETWEEN '{start_date}' AND '{end_date}'
     '''
@@ -287,7 +289,7 @@ def get_repeated_completed_count(start_date, end_date, table_name):
     FROM {table_name}
     WHERE exp_type = 'Повторная'
     AND exp_status = 'Сдана'
-    AND initiator_fio NOT LIKE '%, СВО'
+    AND initiator_fio NOT LIKE '%СВО'
     AND exp_end_date
     BETWEEN '{start_date}' AND '{end_date}'
     '''
@@ -300,7 +302,7 @@ def get_comission_completed_count(start_date, end_date, table_name):
     FROM {table_name}
     WHERE exp_type = 'Комиссионная'
     AND exp_status = 'Сдана'
-    AND initiator_fio NOT LIKE '%, СВО'
+    AND initiator_fio NOT LIKE '%СВО'
     AND exp_end_date
     BETWEEN '{start_date}' AND '{end_date}'
     '''
@@ -312,7 +314,7 @@ def get_additional_comission_completed_count(start_date, end_date, table_name):
     SELECT COUNT(DISTINCT exp_number)
     FROM {table_name}
     WHERE exp_type = 'Дополнительная комиссионная'
-    AND initiator_fio NOT LIKE '%, СВО'
+    AND initiator_fio NOT LIKE '%СВО'
     AND exp_end_date
     BETWEEN '{start_date}' AND '{end_date}'
     '''
@@ -325,7 +327,7 @@ def get_repeated_comission_completed_count(start_date, end_date, table_name):
     FROM {table_name}
     WHERE exp_type = 'Повторная комиссионная'
     AND exp_status = 'Сдана'
-    AND initiator_fio NOT LIKE '%, СВО'
+    AND initiator_fio NOT LIKE '%СВО'
     AND exp_end_date
     BETWEEN '{start_date}' AND '{end_date}'
     '''
@@ -338,7 +340,7 @@ def get_complex_completed_count(start_date, end_date, table_name):
     FROM {table_name}
     WHERE exp_type = 'Комплексная'
     AND exp_status = 'Сдана'
-    AND initiator_fio NOT LIKE '%, СВО'
+    AND initiator_fio NOT LIKE '%СВО'
     AND exp_end_date
     BETWEEN '{start_date}' AND '{end_date}'
     '''
@@ -351,7 +353,7 @@ def get_additional_complex_completed_count(start_date, end_date, table_name):
     FROM {table_name}
     WHERE exp_type = 'Дополнительная комплексная'
     AND exp_status = 'Сдана'
-    AND initiator_fio NOT LIKE '%, СВО'
+    AND initiator_fio NOT LIKE '%СВО'
     AND exp_end_date
     BETWEEN '{start_date}' AND '{end_date}'
     '''
@@ -364,7 +366,7 @@ def get_repeated_complex_completed_count(start_date, end_date, table_name):
     FROM {table_name}
     WHERE exp_type = 'Повторная комплексная'
     AND exp_status = 'Сдана'
-    AND initiator_fio NOT LIKE '%, СВО'
+    AND initiator_fio NOT LIKE '%СВО'
     AND exp_end_date
     BETWEEN '{start_date}' AND '{end_date}'
     '''
@@ -379,7 +381,7 @@ def get_npv_count(start_date, end_date, table_name):
     FROM {table_name}
     WHERE 
     exp_result = 'НПВ'
-    AND initiator_fio NOT LIKE '%, СВО'
+    AND initiator_fio NOT LIKE '%СВО'
     AND exp_end_date
     BETWEEN '{start_date}' AND '{end_date}'
     '''
@@ -393,7 +395,7 @@ def get_persons_est_count(start_date, end_date, table_name):
         FROM {table_name}
         WHERE exp_end_date
         BETWEEN '{start_date}' AND '{end_date}'
-        AND initiator_fio NOT LIKE '%, СВО'
+        AND initiator_fio NOT LIKE '%СВО'
         GROUP BY exp_number)
     SELECT SUM(p_est)
     FROM get_pers_est    
@@ -408,7 +410,7 @@ def get_facts_est_count(start_date, end_date, table_name):
         FROM {table_name}
         WHERE exp_end_date 
         BETWEEN '{start_date}' AND '{end_date}'
-        AND initiator_fio NOT LIKE '%, СВО'
+        AND initiator_fio NOT LIKE '%СВО'
         GROUP BY exp_number)
     SELECT SUM(f_est)
     FROM get_facts_est  
@@ -421,7 +423,7 @@ def get_work_count(table_name):
     SELECT COUNT(DISTINCT exp_number)
     FROM {table_name}
     WHERE exp_status = 'В производстве'
-    AND initiator_fio NOT LIKE '%, СВО'
+    AND initiator_fio NOT LIKE '%СВО'
     '''
     return query_data(query)
 
@@ -431,7 +433,7 @@ def get_work_objs_count(table_name):
         (SELECT DISTINCT exp_number, MAX(objs_count) AS objs_count
         FROM {table_name}
         WHERE exp_status = 'В производстве'
-        AND initiator_fio NOT LIKE '%, СВО'
+        AND initiator_fio NOT LIKE '%СВО'
         GROUP BY exp_number
         ORDER BY objs_count DESC)
     SELECT SUM(objs_count) FROM get_uniq_objs_by_exps
@@ -448,7 +450,7 @@ def get_work_terms(end_date, table_name, status, terms_condition):
             SUBSTRING(TIMEDIFF({end_date}, exp_in_date), 7, 2) AS month
             FROM  {table_name}
             WHERE {status}
-            AND initiator_fio NOT LIKE '%, СВО'
+            AND initiator_fio NOT LIKE '%СВО'
             GROUP BY exp_number)
         WHERE {terms_condition}
         GROUP BY month
