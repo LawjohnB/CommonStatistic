@@ -314,6 +314,7 @@ def get_additional_comission_completed_count(start_date, end_date, table_name):
     SELECT COUNT(DISTINCT exp_number)
     FROM {table_name}
     WHERE exp_type = 'Дополнительная комиссионная'
+    AND exp_status = 'Сдана'
     AND initiator_fio NOT LIKE '%СВО'
     AND exp_end_date
     BETWEEN '{start_date}' AND '{end_date}'
