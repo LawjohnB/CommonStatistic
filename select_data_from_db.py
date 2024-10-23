@@ -19,6 +19,9 @@ def query_data(query, fetch='one'):
     if fetch == 'one':
         # почему-то приходит кортеж с одним значением 
         query_result = cursor.fetchone()[0]
+        # иногда в сложных запросах возвращается None вместо 0
+        if query_result is None:
+            query_result = 0
     else:
         query_result = cursor.fetchall()
     cursor.close()
@@ -201,7 +204,7 @@ def get_complited_objs(start_date, end_date, table_name):
     '''
     # иногда прилетает None, что рушит всё
     res = query_data(query)
-    return res if res else 0
+    return res
 
 # возвращённых без исполнения
 def get_without_exec(start_date, end_date, table_name):
